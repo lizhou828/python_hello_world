@@ -1,1 +1,1 @@
-print ("Hello world! Python 3.5.1")
+print("Hello world! Python 3.5.1")

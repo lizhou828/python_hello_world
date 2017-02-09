@@ -4,14 +4,14 @@ import os
 import time
 
 
-#根据url获取网页内容
+# 根据url获取网页内容
 def getHtml(url):
     page = request.urlopen(url)
     html = page.read()
     return html.decode('UTF-8')
 
 
-#根据网页内容，正则匹配指定格式的图片，并保存
+# 根据网页内容，正则匹配指定格式的图片，并保存
 def getImg(html):
     reg = r'src="(.+?\.jpg)" pic_ext'  # 要加括号，作为元组返回，抓取淘宝的图片png(先看源码中图片的地址路径)reg = r'data-lazy="(.+?\.png)" '
     imgre = re.compile(reg)
@@ -24,6 +24,7 @@ def getImg(html):
     for imgurl in imglist:
         request.urlretrieve(imgurl, '{}{}.jpg'.format(paths, x))
         x += 1
+
 
 # 获取当前时间的毫秒数
 def getCurrentMillis():
