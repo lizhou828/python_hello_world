@@ -21,7 +21,7 @@ SECRET_KEY = 'ksu26AhiugpwOwG5ARVYNHqcRQDP08BT'
 client = AipOcr(APP_ID, API_KEY, SECRET_KEY)
 # """ 调用通用文字识别, 图片参数为本地图片 """
 result = client.basicGeneral(image);
-print( result)
+print(result)
 
 # """ 如果有可选参数 """
 # options = {}
