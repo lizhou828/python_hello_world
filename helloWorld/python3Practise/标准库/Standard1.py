@@ -1,3 +1,11 @@
+#!/usr/bin/env python
+# linux系统下   这一行是必须写的，它能够引导程序找到python的解析器，也就是说，不管你这个文件保存在什么地方，这个程序都能执行，而不用制定python的安装路径。
+
+#coding:utf-8
+# 本程序采用的编码格式是utf-8，什么是编码？什么是utf-8？这是一个比较复杂且有历史的问题，此处暂不讨论。只有有了上面这句话，后面的程序中才能写汉字，否则就会报错了。看官可以把你的程序中的这行删掉，看看什么结果？
+
+
+
 import platform
 print("Tho current version of  python is "+platform.python_version())
 
@@ -35,3 +43,6 @@ print( round(1.234567,2))
 print(round(1.234567,3))
 print(round(10.0/3,4))
 print("如何数据在四则运算下得到精确的结果？")
+
+a = 19+2*4-8/2
+print(a)
