@@ -25,7 +25,7 @@ print(list1[::-1])#反转
 print(id(list1))
 print(id(list1[::-1]))
 
-list2 = reversed(list1)
+list2 = reversed(list1) #list反转
 print(list(list2))
 
 print(len(list1))
@@ -65,14 +65,28 @@ print("lc中数字1出现的次数是：%d 次"  % lc.count(1))#统计某个元�
 
 
 print("\nlist()函数 \n" + "="*100)
-ld=['qiwsir', 'github', 'io',"python"]
-ld.insert(0,"java")
-ld.insert(-2,"php")
-ld.insert(9,"C++")
+ld=['qiwsir','php', 'github', 'io',"python"]
+ld.insert(0,"java")#在指定下标处增加元素
+ld.insert(-2,"php")#在倒数第二个下标处 增加元素
+ld.insert(9,"C++")#超出长度的下标，则在最后处增加元素
 print(ld)
 # ld.remove("adsfadf") # 不能删除不存在的元素
-ld.remove("php")
+ld.remove("php")# 删除第一次出现的值为“php”的元素
 print(ld)
 
 ld.remove("python")
 print(ld)
+ld.pop()#默认删除最后一个元素
+ld.pop(1)#删除指定下标的元素
+print(ld)
+ld = [1,2,23,23,23452,2345,2345,21,23,1]
+ld.sort()#排序
+print(ld)
+ld = [1,2,3,8,34,6,9,5,4]
+ld.sort()#排序
+print(ld)
+lst = ["python","java","c","pascal","basic"]
+lst.sort(key=len) #按照元素的长度 升排序（默认）
+print(lst)
+lst.sort(key=len,reverse=True) #按照元素的长度 降序排序
+print(lst)
