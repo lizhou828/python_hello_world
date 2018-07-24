@@ -38,6 +38,7 @@ print("you can connect me by qq\\weibo\\gmail")  #\\是为了要后面那个\
 # print(a)
 print("取下标、取指定字符串、取子字符串========================================================================================================================")
 print("study python"[0])
+print("study python"[::-1])#反转
 print("study python"[2:8])
 print("study python"[1:])
 print("study python"[:10])
