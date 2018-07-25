@@ -11,6 +11,9 @@ print("在字典中的“键”，必须是不可变的数据类型；“值”�
 name = (["first","Google"],["second","Yahoo"])
 website = dict(name)
 print(website)
+print(website.keys()) # 所有的key
+print(website.values())#所有的value
+
 
 website = {}.fromkeys(("third", "forth"), "facebook") # 需要提醒的是，这种方法是重新建立一个dict。
 print(website)
@@ -35,3 +38,17 @@ print("模板输出")
 temp = "<html><head><title>%(lang)s<title><body><p>My name is %(name)s.</p></body></head></html>"
 my = {"name":"qiwsir", "lang":"python"}
 print(temp % my)
+
+
+dd = {'lang': 'python', 'web': 'www.itdiffer.com', 'name': 'qiwsir'}
+print(dd)
+dd.pop("name") #根据指定的key 来删除
+print(dd)
+
+d1 = {"lang":"python"}
+d2 = {"song":"I dreamed a dream"}
+d1.update(d2)#把字典d2中的内容加到d1中
+print(d1)
+print(d2)
+d2.update([("name","qiwsir"), ("web","itdiffer.com")])
+print(d2)
