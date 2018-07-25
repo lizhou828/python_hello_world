@@ -29,10 +29,14 @@ father_path = os.path.abspath(os.path.dirname(pwd)+os.path.sep+".")
 localFileName = pwd + r"\file\spend_10_yuan_today_breakfast.amr"
 
 # 识别本地文件
-print(aipSpeech.asr(get_file_content(localFileName), 'amr', 8000, {
-        'lan': 'zh',
-        })
-      )
+result = aipSpeech.asr(
+                        get_file_content(localFileName),
+                        'amr',
+                        8000,
+                        {'lan': 'zh'}
+                      )
+print(result)
+print(type(result))
 
 # 从URL获取文件识别
 # aipSpeech.asr('', 'pcm', 16000, {
