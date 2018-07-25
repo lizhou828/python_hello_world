@@ -1,5 +1,7 @@
 # -*- coding:utf-8 -*-
-print("List类型 \n" + "-"*100)
+print("List类型  list是一种有序集合、可扩容（可变长）的数据类型\n" + "-"*100)
+# 有序集合，随时增删。包含的数据类型可以不同：整数、浮点数、字符串、list、tuple、dict、set、bool、空值、常量
+
 a = []  #定义了一个变量a，它是list类型，并且是空的。
 print(type(a))
 print(bool(a))     #用内置函数bool()看看list类型的变量a的布尔值，因为是空的，所以为False)
