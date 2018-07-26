@@ -1,4 +1,5 @@
 mydict = {}
+print(type(mydict))
 person = {"name":"qiwsir","site":"qiwsir.github.io","language":"python"}
 print(person["name"])
 print(id(person))
