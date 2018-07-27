@@ -9,6 +9,8 @@ s2 = set([123,"google","face","book","facebook","book"])
 # 而且，从s2的创建可以看出，查看结果是显示的元素顺序排列与开始建立是不同，
 # 完全是随意显示的，这说明集合中的元素没有序列。多运行几遍print(s2)  可以看出来
 print(s2)
+s3 = {} # <class 'dict'>
+print(type(s3))
 s3 = {"facebook",123}       #通过{}直接创建
 print(s3)
 print(type(s3))
@@ -20,3 +22,14 @@ print(lst)
 print("\n看看set数据类型有哪些方法：\n" + "-" * 100)
 print(dir(set))
 print(help(set.add))
+s3.add("lizhou")
+print(s3)
+a_set = set("python")
+print(a_set)
+a_set.remove("y") #删除指定元素，如果没有该元素，则报错
+print(a_set)
+a_set.discard("y") #删除指定元素，如果没有该元素，则报错
+print(a_set)#删除指定元素，如果没有该元素，则啥都不干
+a_set.clear()
+print(a_set)
+print(bool(a_set))#空了,bool一下返回False.
