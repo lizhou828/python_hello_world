@@ -13,16 +13,20 @@ def getHtml(url):
 
 # 根据网页内容，正则匹配指定格式的图片，并保存
 def getImg(html):
+    # 正则表达式从网页中匹配图片
     reg = r'src="(.+?\.jpg)" pic_ext'  # 要加括号，作为元组返回，抓取淘宝的图片png(先看源码中图片的地址路径)reg = r'data-lazy="(.+?\.png)" '
     imgre = re.compile(reg)
     imglist = imgre.findall(html)
-    x = 0
+
+    # 建立保存图片的本地路径
     path = 'D:\\test'
     if not os.path.isdir(path):
         os.makedirs(path)
     paths = path + '\\'  # 保存在test路径下
+
+    x = 0
     for imgurl in imglist:
-        request.urlretrieve(imgurl, '{}{}.jpg'.format(paths, x))
+        request.urlretrieve(imgurl, '{}{}.jpg'.format(paths, x)) #获取url的文件信息，保存到本地磁盘的文件上
         x += 1
 
 
