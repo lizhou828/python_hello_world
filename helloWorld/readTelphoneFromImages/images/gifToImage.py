@@ -28,16 +28,16 @@ def getNewFileName(fileFullPath,imageType):
 
 
 # 获取文件、文件所在目录
-def convertImage(oldImageType,newImageType):
+def convertImage(oldImageType, newImageType):
     dirPath = os.getcwd()
     fileList = os.listdir(dirPath)
     for filePath in fileList:
-        if filePath.endswith("."+oldImageType):
-            fileFullPath = dirPath +"\\"+ filePath
-            newFileName = getNewFileName(fileFullPath,newImageType)
+        if filePath.endswith("." + oldImageType):
+            fileFullPath = dirPath + "\\" + filePath
+            newFileName = getNewFileName(fileFullPath, newImageType)
             im = Image.open(fileFullPath)
             for i, frame in enumerate(iter_frames(im)):
-                frame.save(newFileName,**frame.info)
+                frame.save(newFileName, **frame.info)
         else:
             continue
 
