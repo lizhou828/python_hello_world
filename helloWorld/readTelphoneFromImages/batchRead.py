@@ -72,7 +72,7 @@ for filePath in fileList:
         telephoneNum = result.get("words_result")[0].get("words")
 
         # rename(dirPath,filePath ,telephoneNum)
-        sqlFileName = r"D:\github\python_project\python_hello_world\helloWorld\readTelphoneFromImages\updateTelephone.sql";
+        sqlFileName = os.getcwd() + r"\updateTelephone.sql"
 
         id = 0;
         if filePath.index(".png") > 0:
