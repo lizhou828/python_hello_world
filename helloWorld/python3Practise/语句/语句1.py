@@ -84,6 +84,7 @@ print(a is b) #特别注意在python2.x的版本中，这个地方是false
 
 
 print("增量赋值 += ")
+# +、-、*、/、%  都可以实现这种操作。
 x = 9
 x += 1
 print(x)
