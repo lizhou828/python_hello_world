@@ -37,12 +37,13 @@ print(5/2)
 print(10/3)
 print(4/2)
 print(4/2)
+print("如何数据在四则运算下得到精确的结果？")
 print(divmod(5,2))
 print(divmod(5.0,2))
 print( round(1.234567,2))
 print(round(1.234567,3))
 print(round(10.0/3,4))
-print("如何数据在四则运算下得到精确的结果？")
+
 
 a = 19+2*4-8/2
 print(a)
