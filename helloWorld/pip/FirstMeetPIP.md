@@ -11,6 +11,7 @@
 
     如果你安装的Python 2 >=2.7.9 或者Python 3 >=3.4 那么Python自带了pip,所以不用安装，配置下它的环境就可以了
     路径：Python安装路径\Scripts\pip.exe
+    如果pip本身版本过低，而导致地方组件安装不了，则需升级pip，命令： python -m pip install --upgrade pip
 
 
 
@@ -38,3 +39,11 @@
     
     更新软件包： pip install --upgrade SomePackage
 
+
+
+# 下载后的默认存放路径
+    win7：
+    c:\用户\(你的用户名)\AppData\Local\pip\cache\
+    
+    linux:
+    ~/.cache/pip
