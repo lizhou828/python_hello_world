@@ -1,3 +1,6 @@
+# 字典类型
+# 用{} 括起来的，里面的元素是“key”:"value"    多个key value之间用","隔开
+
 mydict = {}
 print(type(mydict))
 person = {"name":"qiwsir","site":"qiwsir.github.io","language":"python"}
