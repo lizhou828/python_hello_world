@@ -11,7 +11,7 @@ def get_file_content(filePath):
 # image = get_file_content(u'C:\\Users\\Administrator\\Desktop\\无标题.png')
 
 # 当前文件的路径下的图片文件
-image = get_file_content(os.getcwd()+ r"\无标题.png")
+image = get_file_content(os.getcwd()+ r"\株国土拟征[2018]038号.jpg")
 
 """ 你的 APPID AK SK """
 APP_ID = '11460695'
