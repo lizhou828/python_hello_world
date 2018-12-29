@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# 爬取数据遇到状态码“521”
+# 爬取www.66ip.cn网站数据时，遇到状态码“521”的问题和js代码混淆的问题
 # https://blog.csdn.net/meetliuxin/article/details/82882095
 
 # 预先安装 execjs的包
@@ -17,18 +17,35 @@ app = Flask(__name__)
 def home():
     return '<h1>hello world</h1>'
 
-@app.route('/cookie', methods=['GET', 'POST'])
+
+# 多个参数传递
+# 如果是application/json方式
+# from flask_restful import request
+# dict = request.json()
+#
+# 如果是application/x-www-form-urlencoded方式
+# from flask_restful import request
+# dict = request.form
+
+
+# 请求的json数据格式如下
+# {
+#   "url":"",
+#   "user-agent":""
+# }
+@app.route('/generalCookie', methods=['POST'])
 def cookie():
-    cookie = return_cookie("http://www.66ip.cn/","GBK")
-    return '<h1>' + cookie + '</h1>'
+    if not request.json or 'url' not in request.json or 'user-agent' not in request.json:
+        return jsonify({'code': '400','message':'bad request','data':""})
 
-
-
-headers = {
-        'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/65.0.3325.181 Chrome/65.0.3325.181 Safari/537.36',
+    postParams = request.json
+    headers = {
+        'user-agent': postParams["user-agent"],
     }
+    cookie = return_cookie(postParams["url"],"GBK",headers)
+    return jsonify({'code': '200','message':'ok','data':cookie})
 
-def get_html(url,charset):
+def get_html(url,charset,headers):
     first_html = requests.get(url=url,headers=headers).content.decode(charset)
     return first_html
 
@@ -54,8 +71,8 @@ def parse_cookie(string):
 
 
 
-def return_cookie(url,charset):
-    first_html = get_html(url,charset)
+def return_cookie(url,charset ,headers):
+    first_html = get_html(url,charset,headers)
     # 执行JS获取Cookie
     cookie_str = executejs(first_html)
 
@@ -63,6 +80,13 @@ def return_cookie(url,charset):
     cookie = parse_cookie(cookie_str)
     print('cookies = ',cookie)
     return cookie
+
+
+
+#404处理
+@app.errorhandler(404)
+def not_found(error):
+    return make_response(jsonify({'error':'Not found'}),404)
 
 
 
