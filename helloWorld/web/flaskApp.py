@@ -2,6 +2,10 @@
 # 参考文章地址：
 # Python的Flask框架开发RESTful API https://www.jianshu.com/p/ed1f819a7b58
 
+# 安装flask
+# pip install flask
+
+
 from flask import  Flask,jsonify,request,make_response,abort
 
 app = Flask(__name__)
