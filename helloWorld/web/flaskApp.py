@@ -4,6 +4,10 @@
 # 参考文章地址：
 # Python的Flask框架开发RESTful API https://www.jianshu.com/p/ed1f819a7b58
 
+# 安装flask
+# pip install flask
+
+
 from flask import  Flask,jsonify,request,make_response,abort
 
 app = Flask(__name__)
@@ -15,7 +19,7 @@ not_hello = '为什么今天天气不好呀'
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    return '<h1>hello world</h1>'
+    return '<h1>hello world! Flask web app in Python </h1>'
 
 
 #get
@@ -74,4 +78,4 @@ def not_found(error):
 
 if __name__ == '__main__':
     # 设置Flask为任何地址均可以访问，post设置为‘0.0.0.0’，  解决在局域网内通过服务器IP地址访问不了
-     app.run(host='0.0.0.0', port=5000)
+     app.run(host='0.0.0.0', port=80)
