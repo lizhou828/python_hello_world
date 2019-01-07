@@ -1,4 +1,6 @@
 # -*- coding:utf-8 -*-
+# 准备工作：安装flask包
+# pip install flask
 # 参考文章地址：
 # Python的Flask框架开发RESTful API https://www.jianshu.com/p/ed1f819a7b58
 
