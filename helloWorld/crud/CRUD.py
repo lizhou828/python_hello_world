@@ -33,11 +33,40 @@ cursor.execute('set autocommit = 1') #0:false   1:true
 # sql  = "insert into tb_user (name, pwd) values('zlc_1','123456')"  #增
 # sql = "delete from tb_user where id={0}".format(2)   #删
 # sql = "update tb_user set pwd='1111111' where name = 'zlc_1'"  #改
-sql = 'select * from users'
+sql = 'select * from t_user'
 print(sql)
 
 # 5、执行sql并且得到结果集
 cursor.execute(sql)
+
+
+
+# 测试批量插入sql
+# batchInsertSql = 'insert into t_user(user_name,nick_name,password,user_state,user_type) VALUES (%s,%s) '
+batchInsertSql = 'insert into t_user(user_name,nick_name,password,user_state,user_type) VALUES  '
+# 一个tuple或者list
+T = (('xiaoming','xiaoming','e10adc3949ba59abbe56e057f20f883e', 1, 1), ('xiaohong','xiaohong','e10adc3949ba59abbe56e057f20f883e', 1, 1))
+userSqlStr = "";
+for user in T:
+    if len(userSqlStr) == 0:
+        userSqlStr += str(user)
+    else:
+        userSqlStr += ","+str(user)
+batchInsertSql = batchInsertSql + userSqlStr
+batchInsertSql += ";"
+
+try:
+    # 执行sql语句
+    cursor.executemany(sql, T)
+    # 提交到数据库执行
+    conn.commit()
+except  Exception as e:
+    # 捕获所有异常
+    print(e)
+    # 如果发生错误则回滚
+    conn.rollback()
+finally:
+    print("always execute finally！！！")
 
 # 得到结果集有三种方式：全部 cursor.fetchall()    单个 cursor.fetchone()  多条 cursor.fetchmany(n)
 result = cursor.fetchall()
