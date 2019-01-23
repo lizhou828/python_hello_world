@@ -41,23 +41,23 @@ cursor.execute(sql)
 
 
 
-# 测试批量插入sql
-# batchInsertSql = 'insert into t_user(user_name,nick_name,password,user_state,user_type) VALUES (%s,%s) '
-batchInsertSql = 'insert into t_user(user_name,nick_name,password,user_state,user_type) VALUES  '
+# 测试批量插入sql(有多少个字段就需要多少个%s)
+batchInsertSql = 'insert into t_user(user_name,nick_name,password,user_state,user_type) VALUES (%s,%s,%s,%s,%s) '
+# batchInsertSql = 'insert into t_user(user_name,nick_name,password,user_state,user_type) VALUES  '
 # 一个tuple或者list
 T = (('xiaoming','xiaoming','e10adc3949ba59abbe56e057f20f883e', 1, 1), ('xiaohong','xiaohong','e10adc3949ba59abbe56e057f20f883e', 1, 1))
-userSqlStr = "";
-for user in T:
-    if len(userSqlStr) == 0:
-        userSqlStr += str(user)
-    else:
-        userSqlStr += ","+str(user)
-batchInsertSql = batchInsertSql + userSqlStr
-batchInsertSql += ";"
+# userSqlStr = "";
+# for user in T:
+#     if len(userSqlStr) == 0:
+#         userSqlStr += str(user)
+#     else:
+#         userSqlStr += ","+str(user)
+# batchInsertSql = batchInsertSql + userSqlStr
+# batchInsertSql += ";"
 
 try:
     # 执行sql语句
-    cursor.executemany(sql, T)
+    cursor.executemany(batchInsertSql, T)
     # 提交到数据库执行
     conn.commit()
 except  Exception as e:
