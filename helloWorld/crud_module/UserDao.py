@@ -5,7 +5,7 @@
 import random
 import math
 
-# 引入同一目录下的py文件
+# 引入同一目录下的py文件（来自指定py文件下，导入该文件下的某个类）
 from helloWorld.crud_module.BaseDao import BaseDao
 from helloWorld.crud_module.User import User
 from helloWorld.crud_module.Page import Page

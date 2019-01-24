@@ -8,7 +8,7 @@ import json
 
 from DBUtils.PooledDB import PooledDB
 
-# 引入同一目录下的py文件
+# 引入同一目录下的py文件（来自指定py文件下，导入该文件下的某个类）
 from helloWorld.crud_module.ConfigurationParser import ConfigurationParser
 from helloWorld.crud_module.QueryUtil import QueryUtil
 from helloWorld.crud_module.Logger import Logger
