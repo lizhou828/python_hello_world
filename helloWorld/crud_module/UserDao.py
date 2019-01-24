@@ -21,7 +21,11 @@ userDao = UserDao()
 
 ######################################## CRUD
 
-print(userDao.selectAll())
+userList = userDao.selectAll()
+for u in userList:
+    print("user_id=%s , user_name=%s , user_state= %s" % (u.get_user_id(), u.get_user_name(), u.get_user_state()))
+
+
 # user = userDao.selectByPrimaryKey(1)
 # print(user)
 
