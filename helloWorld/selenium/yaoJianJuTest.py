@@ -29,7 +29,7 @@ print(divElement)
 detailUrlPrefix = "http://app1.sfda.gov.cn/datasearch/face3/"
 aList = divElement.find_elements_by_tag_name("a")
 for a in aList:
-
+    print("链接内容：" + a.text)
     print("得到详情页链接：" + detailUrlPrefix + filterDetailUrl(a.get_attribute("href")))
 
 #  close the browser window
