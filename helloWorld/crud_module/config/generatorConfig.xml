@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<generatorConfiguration>
+    <jdbcConnection>
+        <property name="host">127.0.0.1</property>
+        <property name="database">money_note</property>
+        <property name="port">3306</property>
+        <property name="user">root</property>
+        <property name="password">123456</property>
+        <property name="charset">UTF-8</property>
+    </jdbcConnection>
+
+    <!-- targetPath 文件生成路径 -->
+    <pythonGenerator targetPath="cn.money_note.entity"></pythonGenerator>
+    <daoGenerator targetPath="cn.money_note.dao"></daoGenerator>
+    <serviceGenerator targetPath="cn.money_note.service"></serviceGenerator>
+    <controllerGenerator targetPath="cn.money_note.controller"> </controllerGenerator>
+
+    <!-- name：数据库表明，alias：生成的 class 类名 -->
+    <table name="t_user" alias="User" ></table>
+
+</generatorConfiguration>

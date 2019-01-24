@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<generatorConfiguration>
+    <jdbcConnection>
+        <property name="creator">pymysql</property>
+        <property name="host">127.0.0.1</property>
+        <property name="database">money_note</property>
+        <property name="port">3306</property>
+        <property name="user">root</property>
+        <property name="password">123456</property>
+        <property name="charset">Utf-8</property>
+        <property name="mincached">0</property>
+        <property name="maxcached">10</property>
+        <property name="maxshared">0</property>
+        <property name="maxconnections">20</property>
+    </jdbcConnection>
+</generatorConfiguration>
