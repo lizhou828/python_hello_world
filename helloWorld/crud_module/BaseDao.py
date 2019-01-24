@@ -53,7 +53,11 @@ class BaseDao(object):
                 self.__parser = ConfigurationParser()
                 self.__poolConfigDict = self.__parser.parseConfiguration()
                 print(self.__poolConfigDict)
+
+                # 用于传递到数据库的准备会话，如 [”set name UTF-8″] 。
+                # setsession = "set name UTF-8"
                 self.__pool = PooledDB(**self.__poolConfigDict)
+
 
             # 初始化参数
             if (self.__obj == None) or ( self.__obj != obj):
@@ -64,6 +68,11 @@ class BaseDao(object):
                 self.__init_columns()                                                   # 初始化字段列表
                 self.__logger.end()                                                     # 结束日志
         pass
+
+
+
+
+
     ################################################# 外部调用方法 #################################################
     def selectAll(self):
         """
@@ -137,6 +146,14 @@ class BaseDao(object):
             raise Exception("updateByPrimaryKey() is missing a required paramter 'obj'.")
         sql = QueryUtil.queryUpdateByPrimaryKey(self.__primaryKeyDict, json.loads(str(obj)))
         return self.__executeUpdate(sql)
+
+
+
+
+
+
+
+
 
     ################################################# 内部调用方法 #################################################
     def __execute(self, sql="", logEnable=True):

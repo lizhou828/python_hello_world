@@ -46,6 +46,7 @@ class ConfigurationParser(object):
                 value = property.childNodes[0].data
                 if re.match("[0-9]",value) and name != "password" and name != "host":
                     value = int(value)
+
             if name == "charset":
                 if re.match("utf-8|UTF8", value, re.I):
                     value = "utf8"

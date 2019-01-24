@@ -7,7 +7,7 @@
         <property name="port">3306</property>
         <property name="user">root</property>
         <property name="password">123456</property>
-        <property name="charset">Utf-8</property>
+        <property name="charset">utf-8</property>
         <property name="mincached">0</property>
         <property name="maxcached">10</property>
         <property name="maxshared">0</property>

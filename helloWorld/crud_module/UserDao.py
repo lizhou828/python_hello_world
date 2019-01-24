@@ -20,21 +20,38 @@ class UserDao(BaseDao):
 userDao = UserDao()
 
 ######################################## CRUD
-
+print("查询所有数据" + "="*100)
 userList = userDao.selectAll()
 for u in userList:
-    print("user_id=%s , user_name=%s , user_state= %s" % (u.get_user_id(), u.get_user_name(), u.get_user_state()))
+    print(str(u))
+
+print("根据主键查询" + "="*100)
+user = userDao.selectByPrimaryKey(100)
+print(str(user))
+if not user:
+    user = User()
+    user.set_user_id(100)
+    user.set_user_name("test")
+    user.set_user_state(1)
+    print("执行插入语句" + "="*100)
+    result_count = userDao.insert(user)
+    print("插入记录数：%s" % result_count)
 
 
-# user = userDao.selectByPrimaryKey(1)
-# print(user)
 
-# print(userDao.insert(user))
+print("执行删除语句" + "="*100)
+result_count = userDao.deleteByPrimaryKey(100)
+print("删除记录数：%s" % result_count)
 
-# print(userDao.delete(user))
-# print(userDao.deleteByPrimaryKey(4))
 
-# user = userDao.selectByPrimaryKey(1)
+######################################## 更新
+print("执行更新语句" + "="*100)
+user = User()
+user.set_user_id(1)
+user.set_user_name("测试更新")
+result_count = userDao.updateByPrimaryKey(user)
+print("更新记录数：%s" % result_count)
+
 # print(userDao.updateByPrimaryKey())
 # print(userDao.update())
 
@@ -52,28 +69,23 @@ for u in userList:
 #     i += 1
 #     userDao.updateByPrimaryKey(user)
 
-######################################## 更新
 
-# user = User()
-# user.set_id(2)
-# user.set_name("测试更新")
-# userDao.updateByPrimaryKey(user)
 
 ######################################## 分页查询
 
-# page = Page()
-# pageNum = 1
-# limit = 10
-# page.set_page(pageNum)
-# page.set_limit(limit)
-# total_count = userDao.selectCount()
-# page.set_total_count(total_count)
-# if total_count % limit == 0:
-#     total_page = total_count / limit
-# else:
-#     total_page = math.ceil(total_count / limit)
-# page.set_total_page(total_page)
-# begin = (pageNum - 1) * limit
+page = Page()
+pageNum = 1
+limit = 2
+page.set_page(pageNum)
+page.set_limit(limit)
+total_count = userDao.selectCount()
+page.set_total_count(total_count)
+if total_count % limit == 0:
+    total_page = total_count / limit
+else:
+    total_page = math.ceil(total_count / limit)
+page.set_total_page(total_page)
+begin = (pageNum - 1) * limit
 
-# for user in userDao.selectAllByPage(page):
-#     print(user)
+for user in userDao.selectAllByPage(page):
+    print(str(user))

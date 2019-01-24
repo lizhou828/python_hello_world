@@ -63,7 +63,7 @@ finally:
 
 # 得到结果集有三种方式：全部 cursor.fetchall()    单个 cursor.fetchone()  多条 cursor.fetchmany(n)
 result = cursor.fetchall()
-print(result)
+print(str(result))
 
 # 6、关闭游标和连接
 cursor.close()
