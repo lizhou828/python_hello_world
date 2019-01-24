@@ -44,7 +44,7 @@ result_count = userDao.deleteByPrimaryKey(100)
 print("删除记录数：%s" % result_count)
 
 
-######################################## 更新
+######################################## 根据主键更新
 print("执行更新语句" + "="*100)
 user = User()
 user.set_user_id(1)
@@ -55,19 +55,6 @@ print("更新记录数：%s" % result_count)
 # print(userDao.updateByPrimaryKey())
 # print(userDao.update())
 
-######################################## 根据主键更新
-
-# strList = list("QWERTYUI欧帕斯电饭锅和进口量自行车VB你们送人头刚回家个省份和健康的根本就可获得草泥马VB你们从v莫妮卡了VB了")
-# for index in range(1000):
-#     user = User()
-#     user.set_id(index+1)
-#     name = ""
-#     for i in range(random.randint(3,8)):
-#         name += random.chioce(strList)
-#     user.set_name(name)
-#     user.set_status(1)
-#     i += 1
-#     userDao.updateByPrimaryKey(user)
 
 
 

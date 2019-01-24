@@ -175,7 +175,7 @@ class ConfigurationParser(object):
         if configFilePath:
             self.__configFilePath = configFilePath
         else:
-            self.__configFilePath = sys.path[0] + "/config/generatorConfig.xml"
+            self.__configFilePath = sys.path[0] + "/generatorConfig.xml"
         self.__generatorBasePath = sys.path[0] + "/src/"
         pass
 
