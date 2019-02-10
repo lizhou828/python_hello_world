@@ -1,2 +1,3 @@
 # ignore idea directory.Don't ignore idea files.
 .idea/
+*.log
