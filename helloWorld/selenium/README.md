@@ -7,7 +7,7 @@
     2、3.0以上版本的selenium调用firefox的时候要用geckodriver.exe的才行，将这个文件放到 Python安装目录下的\Scripts目录下就行
     https://github.com/mozilla/geckodriver/releases
     
-    3、安装浏览器插件，以火狐浏览器为例：
+    3、安装浏览器插件Selenium IDE，以火狐浏览器为例：
     火狐浏览器安装firebug：www.firebug.com，调试所有网站语言，调试功能
     Selenium IDE 是嵌入到Firefox 浏览器中的一个插件，实现简单的浏览器操 作的录制与回放功能，IDE 录制的脚本可以可以转换成多种语言，从而帮助我们快速的开发脚本，下载地址：https://addons.mozilla.org/en-US/firefox/addon/selenium-ide/
     
