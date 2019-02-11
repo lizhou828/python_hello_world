@@ -47,3 +47,19 @@
     
     linux:
     ~/.cache/pip
+
+
+# 如果pip 在安装或升级时发生问题到导致无法使用，则需强制重装
+
+    原文地址：https://blog.csdn.net/qq_21437451/article/details/81490932
+    命令如下：
+        
+        #获取pip源码
+        curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+        
+        #强制重装
+        python get-pip.py --force-reinstall
+        
+        #验证是否正确安装
+        pip show pip
+    
