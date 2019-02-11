@@ -1,5 +1,4 @@
 # -*- coding:utf-8 -*-
-import os
 import time
 from flask import Flask
 from flask_apscheduler import APScheduler
