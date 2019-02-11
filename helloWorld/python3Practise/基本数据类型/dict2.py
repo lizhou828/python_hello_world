@@ -43,7 +43,10 @@ print(x)
 
 print("遍历" + "-" * 100)
 dd = {"name":"qiwsir", "lang":"python", "web":"www.itdiffer.com"}
-dd_kv = dd.items() # 得到一个关于字典的列表，列表中的元素是由字典中的键和值组成的元组
+dd_kv = dd.items() #
+for key,value in dd.items():
+    print("key="+key+',value='+value)#  得到一个关于字典的列表，列表中的元素是由字典中的键和值组成的元组
+
 print(dd_kv)
 dd_list =list(dd_kv)
 print(dd_list )

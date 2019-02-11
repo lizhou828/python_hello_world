@@ -32,13 +32,16 @@ driver = webdriver.Firefox()
 # 需要特别说明的是：隐性等待对整个driver的周期都起作用，所以只要设置一次即可，我曾看到有人把隐性等待当成了sleep在用，走哪儿都来一下…
 
 driver.maximize_window()#窗口最大化显示
-driver.get('http://www.landchina.com/default.aspx?tabid=263&ComName=default')
+try:
+    driver.get('http://www.landchina.com/default.aspx?tabid=263&ComName=default')
+    # 强制等待,等待网页加载完成后，才能再去抓取
+    time.sleep(10)
 
-# 强制等待,等待网页加载完成后，才能再去抓取
-time.sleep(10)
+    TAB_contentTable = driver.find_element_by_id("TAB_contentTable")
+    print(TAB_contentTable.text)
+except Exception as e:
+    print(e)
 
-TAB_contentTable = driver.find_element_by_id("TAB_contentTable")
-print(TAB_contentTable.text)
 
 # 关闭浏览器
 driver.quit()
