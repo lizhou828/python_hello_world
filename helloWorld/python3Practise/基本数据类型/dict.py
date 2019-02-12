@@ -4,9 +4,10 @@
 mydict = {}
 print(type(mydict))
 person = {"name":"qiwsir","site":"qiwsir.github.io","language":"python"}
-print(person["name"])
+print(person["name"])#如果key不存在，这种方式容易报错 KeyError: 'name'
+print("person.get(\"name1\") = %s" % person.get("name1"))#如果key不存在，这种方式不会报错
 print(id(person))
-person ["name"] = "liz"
+person["name"] = "liz"
 print(id(person))
 print("dict的数据类型也是可变长的，与list相似")
 print("在字典中的“键”，必须是不可变的数据类型；“值”可以是任意数据类型。")
