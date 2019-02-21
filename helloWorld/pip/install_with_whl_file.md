@@ -1,3 +1,7 @@
+# 如何给Python安装.whl文件
+https://blog.csdn.net/weixin_41592575/article/details/78984585
+
+
 以下载whl文件、并安装的方式来安装python依赖
 1、进入http://www.lfd.uci.edu/~gohlke/pythonlibs/
 2、找到相应版本、操作系统位数的包名和链接
