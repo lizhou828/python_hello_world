@@ -233,6 +233,23 @@ def AJK_Slide_Captcha_run():
     # 关闭浏览器
     # driver.quit()
 
+
+def click_locxy(dr, x, y, left_click=True):
+    '''
+    使用ActionChains 能连续点击指定坐标
+    因为每次移动都是在上一次坐标的基础上（即坐标值是累积的），所以需要用封装一个方法来抵消这种累积（点击完之后将鼠标坐标恢复）
+    dr:浏览器
+    x:页面x坐标
+    y:页面y坐标
+    left_click:True为鼠标左键点击，否则为右键点击
+    '''
+    if left_click:
+        ActionChains(dr).move_by_offset(x, y).context_click().perform()
+    else:
+        ActionChains(dr).move_by_offset(x, y).click().perform()
+    ActionChains(dr).move_by_offset(-x, -y).perform()  # 将鼠标位置恢复到移动前
+
+
 if __name__ == '__main__':
     driver = webdriver.Firefox()
     driver.maximize_window()#窗口最大化显示
@@ -248,18 +265,18 @@ if __name__ == '__main__':
 
         # 使用pyautogui来右键鼠标下载
         # 执行鼠标动作
-        actions = ActionChains(driver)
+        click_locxy(driver,850,200)
+        # actions = ActionChains(driver)
+
+        pyautogui.typewrite(['down','down','down','down','enter','enter'])
+        # 单击图片另存之后等1s敲回车
+        time.sleep(1)
+        pyautogui.typewrite(['enter'])
 
 
-        puzzleImg = driver.find_element_by_xpath('//img[@class="dvc-captcha__puzzleImg"]')
+        # pyautogui.press('esc')
 
-        # 找到图片后右键单击图片
-        actions.context_click(puzzleImg)
-
-        actions.perform()
-        # 发送键盘按键，根据不同的网页，
-        # 右键之后按对应次数向下键，
-        # 找到图片另存为菜单
+        click_locxy(driver,1000,200)
         pyautogui.typewrite(['down','down','down','down','enter','enter'])
         # 单击图片另存之后等1s敲回车
         time.sleep(1)
@@ -267,19 +284,41 @@ if __name__ == '__main__':
 
 
 
-        # bgImg = driver.find_element_by_xpath('//img[@class="dvc-captcha__bgImg"]')
+        # puzzleImg = driver.find_element_by_xpath('//img[@class="dvc-captcha__puzzleImg"]')
+        # captcha_bgImg = driver.find_element_by_xpath('//img[@class="dvc-captcha__bgImg"]')
 
         # 找到图片后右键单击图片
-        actions.move_by_offset(1000, 300).context_click()
+        # actions.context_click(puzzleImg)
 
-        actions.perform()
-        # 发送键盘按键，根据不同的网页，
-        # 右键之后按对应次数向下键，
-        # 找到图片另存为菜单
-        pyautogui.typewrite(['down','down','down','down','enter','enter'])
-        # 单击图片另存之后等1s敲回车
-        time.sleep(1)
-        pyautogui.typewrite(['enter'])
+        # actions.perform()
+        # # 发送键盘按键，根据不同的网页，
+        # # 右键之后按对应次数向下键，
+        # # 找到图片另存为菜单
+        # pyautogui.typewrite(['down','down','down','down','enter','enter'])
+        # # 单击图片另存之后等1s敲回车
+        # time.sleep(1)
+        # pyautogui.typewrite(['enter'])
+        # time.sleep(5)
+
+
+
+
+
+        #
+        # # 找到图片后右键单击图片
+        # # actions.move_by_offset(1200, 400).context_click()
+        #
+        # captcha_bgImg = driver.find_element_by_xpath('//img[@class="dvc-captcha__bgImg"]')
+        # actions.context_click(captcha_bgImg)
+        #
+        # actions.perform()
+        # # 发送键盘按键，根据不同的网页，
+        # # 右键之后按对应次数向下键，
+        # # 找到图片另存为菜单
+        # pyautogui.typewrite(['down','down','down','down','enter','enter'])
+        # # 单击图片另存之后等1s敲回车
+        # time.sleep(1)
+        # pyautogui.typewrite(['enter'])
 
     except Exception as e:
         print(e)
