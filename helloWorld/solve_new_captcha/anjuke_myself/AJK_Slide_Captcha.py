@@ -32,6 +32,7 @@ import requests
 import execjs
 import os
 import base64
+import cv2
 import time
 from selenium import webdriver
 from selenium.webdriver import ActionChains
@@ -168,6 +169,13 @@ def AJK_Slide_Captcha_run():
 # AJK_Slide_Captcha().run()
     # 您校验错误的次数太多了,请刷新页面
 
+    big_img_path = r"C:\Users\Administrator\Downloads\captcha_img.jpg"
+    small_img_path = r"C:\Users\Administrator\Downloads\captcha_img.png"
+    if os.path.exists(big_img_path):
+        os.remove(big_img_path)
+
+    if os.path.exists(small_img_path):
+        os.remove(small_img_path)
 
 
     # driver = webdriver.Firefox(profile)
@@ -186,17 +194,30 @@ def AJK_Slide_Captcha_run():
         scrollElement = driver.find_elements_by_class_name('dvc-slider__handler')[0]
 
         # 1 图片上 缺口的位置的x坐标(需要下载图片)
-        # puzzleImg = get_image(driver, '//img[@class="dvc-captcha__puzzleImg"]',"puzzleImg")
-        # bgImg = get_image(driver, '//img[@class="dvc-captcha__bgImg"]',"bgImg")
 
-        # 相对于屏幕，对验证码截图（截图坐标根据自己的显示器分辨率不同而不一样）
-        bgImg = ImageGrab.grab((830, 210, 1110, 368))
-        bgImg.save("bgImg.jpg")
+    #     # 使用pyautogui来右键鼠标下载
+    #     # 执行鼠标动作
+        click_locxy(driver,850,200)
+        # actions = ActionChains(driver)
+
+        pyautogui.typewrite(['down','down','down','down','enter','enter'])
+    #     # 单击图片另存之后等1s敲回车
+        time.sleep(1)
+        pyautogui.typewrite(['enter'])
+    #
+    #
+        pyautogui.press('esc')
+    #
+        click_locxy(driver,1000,200)
+        pyautogui.typewrite(['down','down','down','down','enter','enter'])
+    #     # 单击图片另存之后等1s敲回车
+        time.sleep(1)
+        pyautogui.typewrite(['enter'])
 
 
          # 2 对比两张图片的所有RBG像素点，得到不一样像素点的x值，即要移动的距离
         # distance = get_distance(puzzleImg, bgImg)
-        distance = get_position(bgImg)
+        distance = get_distance(big_img_path,small_img_path)
 
 
         # 3 获得移动轨迹
@@ -250,79 +271,51 @@ def click_locxy(dr, x, y, left_click=True):
     ActionChains(dr).move_by_offset(-x, -y).perform()  # 将鼠标位置恢复到移动前
 
 
+
+
+
+# 判断颜色是否相近
+def is_similar_color( x_pixel, y_pixel):
+    for i, pixel in enumerate(x_pixel):
+        if abs(y_pixel[i] - pixel) > 50:
+            return False
+    return True
+
+ # 计算距离
+def get_offset_distance( cut_image, full_image):
+    for x in range(cut_image.width):
+        for y in range(cut_image.height):
+            cpx = cut_image.getpixel((x, y))
+            fpx = full_image.getpixel((x, y))
+            if not is_similar_color(cpx, fpx):
+                img = cut_image.crop((x, y, x + 40, y + 45))
+                # 保存一下计算出来位置图片，看看是不是缺口部分
+                img.save("1.jpg")
+                return x
+
+
 if __name__ == '__main__':
-    driver = webdriver.Firefox()
-    driver.maximize_window()#窗口最大化显示
     try:
-        driver.get('https://www.anjuke.com/captcha-verify/?callback=shield&from=antispam')
-        time.sleep(5)
+        big_img_path = r"C:\Users\Administrator\Downloads\captcha_img.jpg"
+        big_img_path = Image.open(big_img_path)
+        big_img_path.save(r'C:\Users\Administrator\Downloads\captcha_big_img.png')
 
-        scrollElement = driver.find_elements_by_class_name('dvc-slider__handler')[0]
+        big_img_path = Image.open(r'C:\Users\Administrator\Downloads\captcha_big_img.png')
+        big_img_path = big_img_path.convert("RGB")
 
-        # 1 图片上 缺口的位置的x坐标(需要下载图片)
-        # get_image(driver, '//img[@class="dvc-captcha__puzzleImg"]',"puzzleImg.png")
-        # get_image(driver, '//img[@class="dvc-captcha__bgImg"]',"bgImg.jpg")
+        # PIL将png的RGBA四通道改为jpg的RGB三通道方法  https://blog.csdn.net/missyougoon/article/details/85331493
 
-        # 使用pyautogui来右键鼠标下载
-        # 执行鼠标动作
-        click_locxy(driver,850,200)
-        # actions = ActionChains(driver)
+        small_img_path = r"C:\Users\Administrator\Downloads\captcha_img.png"
+        small_img_path = Image.open(small_img_path)
+        small_img_path = small_img_path.convert("RGB")
 
-        pyautogui.typewrite(['down','down','down','down','enter','enter'])
-        # 单击图片另存之后等1s敲回车
-        time.sleep(1)
-        pyautogui.typewrite(['enter'])
-
-
-        # pyautogui.press('esc')
-
-        click_locxy(driver,1000,200)
-        pyautogui.typewrite(['down','down','down','down','enter','enter'])
-        # 单击图片另存之后等1s敲回车
-        time.sleep(1)
-        pyautogui.typewrite(['enter'])
-
-
-
-        # puzzleImg = driver.find_element_by_xpath('//img[@class="dvc-captcha__puzzleImg"]')
-        # captcha_bgImg = driver.find_element_by_xpath('//img[@class="dvc-captcha__bgImg"]')
-
-        # 找到图片后右键单击图片
-        # actions.context_click(puzzleImg)
-
-        # actions.perform()
-        # # 发送键盘按键，根据不同的网页，
-        # # 右键之后按对应次数向下键，
-        # # 找到图片另存为菜单
-        # pyautogui.typewrite(['down','down','down','down','enter','enter'])
-        # # 单击图片另存之后等1s敲回车
-        # time.sleep(1)
-        # pyautogui.typewrite(['enter'])
-        # time.sleep(5)
-
-
-
-
-
-        #
-        # # 找到图片后右键单击图片
-        # # actions.move_by_offset(1200, 400).context_click()
-        #
-        # captcha_bgImg = driver.find_element_by_xpath('//img[@class="dvc-captcha__bgImg"]')
-        # actions.context_click(captcha_bgImg)
-        #
-        # actions.perform()
-        # # 发送键盘按键，根据不同的网页，
-        # # 右键之后按对应次数向下键，
-        # # 找到图片另存为菜单
-        # pyautogui.typewrite(['down','down','down','down','enter','enter'])
-        # # 单击图片另存之后等1s敲回车
-        # time.sleep(1)
-        # pyautogui.typewrite(['enter'])
-
+        # distance = get_distance(big_img_path,small_img_path)
+        # print("distance={}".format(distance))
+        distance = get_offset_distance(small_img_path,big_img_path)
+        print("distance={}".format(distance))
     except Exception as e:
         print(e)
-
+    #
 
 
 
