@@ -1,4 +1,19 @@
 import operator
+print("中文转unicode,再转回中文【第一种】：" + "="*50)
+s_unicode = u'\u810f\u4e71'
+s_str = s_unicode.encode('unicode-escape').decode('unicode-escape')
+print(s_str)
+
+print("中文转unicode,再转回中文【第二种】：" + "="*50)
+unicode_byte="霶鏄朤垘橚和痤旎内偲巊鏾朤".encode("unicode_escape")
+unicode_str = str(unicode_byte, encoding = "utf-8")
+print(unicode_str)
+unicode_strs = unicode_str.split("\\")
+for string in unicode_strs:
+    if not string or len(string) == 0:
+        continue
+    string = eval(r"u'" + "\\" + string + "'")
+    print(string)
 
 # 特殊字符 、转义符
 print("what's your name ")
