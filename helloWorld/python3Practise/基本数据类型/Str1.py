@@ -15,6 +15,9 @@ for string in unicode_strs:
     string = eval(r"u'" + "\\" + string + "'")
     print(string)
 
+print("eval()函数的作用：   将字符串str当成有效的表达式来求值并返回计算结果。")
+print("见原文：https://www.cnblogs.com/loved/p/8697643.html")
+
 # 特殊字符 、转义符
 print("what's your name ")
 print('what"s your name ')

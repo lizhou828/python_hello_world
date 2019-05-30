@@ -23,7 +23,7 @@ from PIL  import Image, ImageDraw, ImageFont
 
 
 s_unicode = u'\u810f\u4e71'
-s_str = s_unicode.encode('unicode-escape').decode('string_escape')
+s_str = s_unicode.encode('unicode-escape').decode('unicode-escape')
 print(s_str)
 
 unicode_byte="霶鏄朤垘橚和痤旎内偲巊鏾朤".encode("unicode_escape")
@@ -33,8 +33,9 @@ unicode_strs = unicode_str.split("\\")
 for str in unicode_strs:
     if not str or len(str) == 0:
         continue
-    str =eval(r"u'\\" + str + "'")
-    # str = str.encode('unicode-escape').decode('string_escape')
-    print("\\"+str)
+    # str = eval(r"u'" + '\\u9736' + "'")
+    str1 = eval(r"u'" + "\\" + str + "'")
+    # str = str.decode('unicode-escape')
+    print(str1)
 
 # print('\u548c'.encode('latin-1').decode('unicode_escape'))

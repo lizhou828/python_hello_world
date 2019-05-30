@@ -8,6 +8,10 @@ https://www.jianshu.com/p/832b76dfe6a1?from=timeline
 Python——破解极验滑动验证码
 https://www.cnblogs.com/xiao-apple36/p/8878960.html
 
+
+爬虫练习三(破解极验滑动验证码)
+https://www.cnblogs.com/moning/p/8318475.html
+
 @Function:
 @File    :          AJK_Slide_Captcha.py    
 @Contact :          lizhou@glorypty.com
@@ -29,10 +33,8 @@ from urllib.request import urlretrieve
 
 from PIL import Image,ImageGrab
 import requests
-import execjs
 import os
 import base64
-import cv2
 import time
 from selenium import webdriver
 from selenium.webdriver import ActionChains
@@ -283,29 +285,42 @@ def is_similar_color( x_pixel, y_pixel):
 
  # 计算距离
 def get_offset_distance( cut_image, full_image):
-    for x in range(cut_image.width):
-        for y in range(cut_image.height):
-            cpx = cut_image.getpixel((x, y))
-            fpx = full_image.getpixel((x, y))
-            if not is_similar_color(cpx, fpx):
-                img = cut_image.crop((x, y, x + 40, y + 45))
-                # 保存一下计算出来位置图片，看看是不是缺口部分
-                img.save("1.jpg")
-                return x
+    # for x in range(cut_image.width):
+    #     for y in range(cut_image.height):
+    #         cpx = cut_image.getpixel((x, y))
+    #         fpx = full_image.getpixel((x, y))
+    #         if not is_similar_color(cpx, fpx):
+    #             img = cut_image.crop((x, y, x + 40, y + 45))
+    #             # 保存一下计算出来位置图片，看看是不是缺口部分
+    #             img.save("1.jpg")
+    #             return x
+
+    threshold = 60
+    left = 57
+    for i in range(left, cut_image.size[0]):
+        for j in range(cut_image.size[1]):
+            rgb1 = full_image.load()[i, j]
+            rgb2 = full_image.load()[i, j]
+            res1 = abs(rgb1[0] - rgb2[0])
+            res2 = abs(rgb1[1] - rgb2[1])
+            res3 = abs(rgb1[2] - rgb2[2])
+            if not (res1 < threshold and res2 < threshold and res3 < threshold):
+                return i - 7  # 经过测试，误差为大概为7
+    return i - 7  # 经过测试，误差为大概为7
 
 
 if __name__ == '__main__':
     try:
-        big_img_path = r"C:\Users\Administrator\Downloads\captcha_img.jpg"
+        big_img_path = r"captcha_img.jpg"
         big_img_path = Image.open(big_img_path)
-        big_img_path.save(r'C:\Users\Administrator\Downloads\captcha_big_img.png')
+        big_img_path.save(r'captcha_big_img.png')
 
-        big_img_path = Image.open(r'C:\Users\Administrator\Downloads\captcha_big_img.png')
+        big_img_path = Image.open(r'captcha_big_img.png')
         big_img_path = big_img_path.convert("RGB")
 
         # PIL将png的RGBA四通道改为jpg的RGB三通道方法  https://blog.csdn.net/missyougoon/article/details/85331493
 
-        small_img_path = r"C:\Users\Administrator\Downloads\captcha_img.png"
+        small_img_path = r"captcha_img.png"
         small_img_path = Image.open(small_img_path)
         small_img_path = small_img_path.convert("RGB")
 
