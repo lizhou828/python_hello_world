@@ -39,3 +39,4 @@ for str in unicode_strs:
     print(str1)
 
 # print('\u548c'.encode('latin-1').decode('unicode_escape'))
+
