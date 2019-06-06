@@ -42,3 +42,6 @@ if __name__ == "__main__":
     click_locxy(dr, 500, 500)
     print("第二次点击")
     pyautogui.press('esc')
+
+    dr.quit()
+    print("已关闭浏览器")
