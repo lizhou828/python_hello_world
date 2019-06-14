@@ -98,6 +98,16 @@ class BaseDao(object):
         sql = QueryUtil.queryCount(self.__tableName);
         return self.__execute(sql)[0][0]
 
+    def selectByProperties(self, obj):
+        """
+        条件查询
+        """
+        sql = QueryUtil.selectByProperties(self.__tableName, json.loads(str(obj)))
+        if (not sql) or sql == "" or len(sql) == 0 or (not isinstance(sql, str)):
+            self.__logger.outMsg("Generate sql failed!!!!")
+            return 0
+        return self.__executeQuery(sql, logEnable=True)
+
     def selectAllByPage(self, page=None):
         """
         分页查询
@@ -217,8 +227,6 @@ class BaseDao(object):
                 objList.append(obj)
             if not objList:
                 return None
-            elif len(objList) == 1:
-                return objList[0]
             else:
                 return objList
         except Exception as e:

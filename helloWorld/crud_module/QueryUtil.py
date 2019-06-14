@@ -43,6 +43,26 @@ class QueryUtil(object):
         return 'SELECT COUNT(*) FROM %s'%(tableName)
 
     @staticmethod
+    def selectByProperties(tableName, objDict):
+        """
+        条件查询
+        """
+        if (not objDict) or (len(objDict) == 0) or (not isinstance(objDict, dict)):
+            return 'SELECT * FROM %s' % (tableName)
+        else:
+            sql = "SELECT * FROM  `%s` where " % (tableName)
+            i = 0
+            for key, value in objDict.items():
+                if (not value) or (value == None) or (value == "None"):
+                    continue
+                if i == 0:
+                    sql += key + "='" + str(value) + "'"
+                    i += 1
+                else:
+                    sql += " and " + key + "='" + str(value) + "'"
+            return sql
+
+    @staticmethod
     def queryAllByPage(tableName, columnList, page=None):
         """
         拼接分页查询
