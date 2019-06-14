@@ -18,3 +18,9 @@ https://www.cnblogs.com/wangjian8888/p/6111701.html
 
 安利一波Python编程中非常实用的那些黑魔法
 https://www.jianshu.com/p/0611a2bbbd8d
+
+Python3实用编程技巧进阶一
+https://www.cnblogs.com/sunlong88/articles/10252780.html
+
+Python高效编程的19个技巧
+https://www.cnblogs.com/rourou1/p/6148483.html
