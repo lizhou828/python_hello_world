@@ -20,7 +20,4 @@ def print_info(message):
     print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()), ">>> [", thread_name, "-", ident, "] (", code.co_filename, "@", frame.f_lineno, "line)", ":", message)
 
 
-print_info("内建函数id()可以查看每个对象的内存地址:")
-print_info(id(2))
-
 
