@@ -5,6 +5,8 @@ import os
 # 不支持语义、意图识别，AndroidSDN支持语义、意图识别
 
 #""" 你的 APPID AK SK """
+from helloWorld import print_info
+
 APP_ID = '10293937'
 API_KEY = 'rwdTiADREGfwfcj9ZaZC9sbK'
 SECRET_KEY = '2c06fa850fa662018dbe40b015c0f0f6'
@@ -35,8 +37,8 @@ result = aipSpeech.asr(
                         8000,
                         {'lan': 'zh'}
                       )
-print(result)
-print(type(result))
+print_info(result)
+print_info(type(result))
 
 # 从URL获取文件识别
 # aipSpeech.asr('', 'pcm', 16000, {

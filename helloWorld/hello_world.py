@@ -1,7 +1,9 @@
 import sys
 
-print("Hello world! Python 3.5.1")
+from helloWorld import print_info
 
-print("[file %s @num: %s , message: %s ]" % ( __file__, sys._getframe().f_lineno,"caonima"))
-print(str(sys._getframe().f_lineno) + " hehe.")
+print_info("Hello world! Python 3.5.1")
+
+print_info("[file %s @num: %s , message: %s ]" % ( __file__, sys._getframe().f_lineno,"caonima"))
+print_info(str(sys._getframe().f_lineno) + " hehe.")
 
