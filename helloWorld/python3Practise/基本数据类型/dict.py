@@ -61,6 +61,7 @@ dic = {1:"1",2:"12",3:"123",4:"1234"}
 
 for key in list(dic.keys()):
      if 3 == key:
+         # del关键字 ：删除的是变量，而不是数据，解除了变量和数据的联系。https://blog.csdn.net/su_bao/article/details/81671292
         del(dic[key])
 print_info(dic)
 
