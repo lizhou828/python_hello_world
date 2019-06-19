@@ -1,5 +1,6 @@
 # 字典类型
 # 用{} 括起来的，里面的元素是“key”:"value"    多个key value之间用","隔开
+from helloWorld import print_info
 
 mydict = {}
 print(type(mydict))
@@ -49,6 +50,20 @@ dd = {'lang': 'python', 'web': 'www.itdiffer.com', 'name': 'qiwsir'}
 print(dd)
 dd.pop("name") #根据指定的key 来删除
 print(dd)
+
+
+dic = {1:"1",2:"12",3:"123",4:"1234"}
+
+# for k, v in dic.items():
+#     if 3 == k:
+#         dic.pop(k, "key:"+str(k)+" not exists!")
+# 这样删除key会报错：dictionary changed size during iteration
+
+for key in list(dic.keys()):
+     if 3 == key:
+        del(dic[key])
+print_info(dic)
+
 
 d1 = {"lang":"python"}
 d2 = {"song":"I dreamed a dream"}
