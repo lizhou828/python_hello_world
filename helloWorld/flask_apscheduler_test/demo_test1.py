@@ -4,6 +4,7 @@ from flask import Flask
 from flask_apscheduler import APScheduler
 
 
+# APScheduler（Python化的Cron）使用总结 定时任务  https://www.cnblogs.com/zhaoyingjie/p/9664081.html
 
 class Config(object):
     SCHEDULER_API_ENABLED = True
