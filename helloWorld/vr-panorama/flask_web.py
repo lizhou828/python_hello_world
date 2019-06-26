@@ -41,5 +41,14 @@ def aframe():
     #源码  https://github.com/aframevr/aframe
     return app.send_static_file("aframe/index.html")  # homepage.html在html文件夹下
 
+
+@app.route('/pannellum', methods=['GET'])
+def pannellum():
+    # 官网 https://pannellum.org
+    # 例子 https://pannellum.org/documentation/examples/simple-example/
+    #源码  https://github.com/mpetroff/pannellum/
+    return app.send_static_file("pannellum/index.html")  # homepage.html在html文件夹下
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=9000, debug=True)  # 启动flask
