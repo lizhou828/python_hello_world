@@ -11,13 +11,6 @@
 2019-6-21 17:10     lizhou         1.0
 
 """
-
-import smtplib
-import email.mime.multipart
-import email.mime.text
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
-from email.mime.application import MIMEApplication
 import smtplib
 import email.mime.multipart
 import email.mime.text
