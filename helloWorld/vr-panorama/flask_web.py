@@ -50,5 +50,10 @@ def pannellum():
     return app.send_static_file("pannellum/index.html")  # homepage.html在html文件夹下
 
 
+@app.route('/vhall', methods=['GET'])
+def vhall():
+    return app.send_static_file("vhall.pdf")
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=9000, debug=True)  # 启动flask
