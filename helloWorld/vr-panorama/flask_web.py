@@ -50,9 +50,18 @@ def pannellum():
     return app.send_static_file("pannellum/index.html")  # homepage.html在html文件夹下
 
 
+@app.route('/haoshitong_ppt', methods=['GET'])
+def haoshitong_ppt():
+    return app.send_static_file("haoshitong.pptx")
+
 @app.route('/vhall', methods=['GET'])
 def vhall():
     return app.send_static_file("vhall.pdf")
+
+
+@app.route('/vhall_xlsx', methods=['GET'])
+def vhall_xlsx():
+    return app.send_static_file("vhall.xlsx")
 
 
 if __name__ == '__main__':
