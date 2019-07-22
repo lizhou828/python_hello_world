@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-
+# pip install baidu-aip
 from aip import AipOcr
 import os
 

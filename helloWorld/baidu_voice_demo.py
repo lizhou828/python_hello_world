@@ -1,3 +1,4 @@
+# pip install baidu-aip
 from aip import AipSpeech
 import os
 

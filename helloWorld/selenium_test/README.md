@@ -3,6 +3,7 @@
 ## 准备工作
     1、安装Python和Selenium包(-U参数会将已经安装的旧版更新至新版): 
     pip3 install -U selenium
+    如果是win10系统下，请以管理员的方式打开cmd，再执行安装包的命令：pip3 install -U selenium
     
     2、3.0以上版本的selenium调用firefox的时候要用geckodriver.exe的才行，将这个文件放到 Python安装目录下的\Scripts目录下就行
     https://github.com/mozilla/geckodriver/releases
