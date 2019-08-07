@@ -21,3 +21,14 @@ data = driver.page_source   #获取网页文本
 # driver.save_screenshot('1.png')   #截图保存
 print(data)
 driver.quit()
+
+
+driver1 = webdriver.PhantomJS( executable_path = r'D:\ProgramFiles\phantomjs-2.1.1-windows\bin\phantomjs.exe')
+driver1.get("http://www.csdn.net")
+data = driver1.title
+driver1.save_screenshot('csdn.png')
+# ---------------------
+# 版权声明：本文为CSDN博主「Blackrosetian」的原创文章，遵循CC 4.0 by-sa版权协议，转载请附上原文出处链接及本声明。
+# 原文链接：https://blog.csdn.net/Blackrosetian/article/details/75126904
+
+

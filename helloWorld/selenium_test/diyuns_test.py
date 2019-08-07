@@ -20,6 +20,8 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
 from selenium.webdriver.support.wait import WebDriverWait
 import json
+
+# pip install bs4
 from bs4 import BeautifulSoup
 
 
