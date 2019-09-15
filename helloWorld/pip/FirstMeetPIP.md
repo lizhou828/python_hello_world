@@ -42,11 +42,8 @@
 
 
 # 下载后的默认存放路径
-    win7：
-    c:\用户\(你的用户名)\AppData\Local\pip\cache\
-    
-    linux:
-    ~/.cache/pip
+    在命令窗口运行，查看python的包管理路径： python -m site
+    pip安装库的默认位置: pip show selenium
 
 
 # 如果pip 在安装或升级时发生问题到导致无法使用，则需强制重装
