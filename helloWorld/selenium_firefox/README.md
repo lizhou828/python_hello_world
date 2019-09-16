@@ -1,4 +1,4 @@
-# selenium 自动化测试
+# selenium 自动化测试（Firefox版）
 
 ## 准备工作
     1、安装Python和Selenium包(-U参数会将已经安装的旧版更新至新版): 
