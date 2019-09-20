@@ -59,4 +59,7 @@
         
         #验证是否正确安装
         pip show pip
-    
+        
+# 切换第三方依赖的仓库
+    windows下：
+    https://blog.csdn.net/lwgkzl/article/details/80935453    

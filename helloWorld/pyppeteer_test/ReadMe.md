@@ -5,7 +5,7 @@
     这个必须通过重新编译chrome的webdriver才能实现，麻烦得让人想哭。
     不说了，都是泪，所以直接用pyppeteer
 # 安装环境
-    pip install -i https://pypi.douban.com/simple pypeteer
+    pip install -i https://pypi.douban.com/simple pyppeteer
         
 
 # 参考文档
