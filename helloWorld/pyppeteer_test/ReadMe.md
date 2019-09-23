@@ -4,7 +4,7 @@
     但是，通过webdriver对浏览器的每一步操作都会留下特殊的痕迹，会被平台识别，
     这个必须通过重新编译chrome的webdriver才能实现，麻烦得让人想哭。
     不说了，都是泪，所以直接用pyppeteer
-    ![pyppeteer隐藏webdriver标记](./pyppeteer隐藏webdriver标记.png)
+![pyppeteer隐藏webdriver标记](./pyppeteer隐藏webdriver标记.png)
     
 # 安装环境
     pip install -i https://pypi.douban.com/simple pyppeteer
