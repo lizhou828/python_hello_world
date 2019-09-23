@@ -7,6 +7,7 @@
 ![pyppeteer隐藏webdriver标记](./pyppeteer隐藏webdriver标记.png)
     
 # 安装环境
+    环境要求 : Pyppeteer requires python 3.6+.
     pip install -i https://pypi.douban.com/simple pyppeteer
         
 
