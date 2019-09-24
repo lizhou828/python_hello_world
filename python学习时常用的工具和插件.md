@@ -76,3 +76,5 @@
     6个炫酷又好用的 Python 工具  https://blog.csdn.net/MOY37RQW1JarN33BgZk/article/details/85240933
     
     Pycharm精选插件 https://blog.csdn.net/stormdony/article/details/90261391
+    
+    PyCharm中那些让我不忍心卸载的插件  https://www.lizenghai.com/archives/22451.html
