@@ -1,0 +1,103 @@
+%PDF-1.3
+1 0 obj
+<<
+/Type /Pages
+/Count 1
+/Kids [ 3 0 R ]
+>>
+endobj
+2 0 obj
+<<
+/Producer (PyPDF2)
+>>
+endobj
+3 0 obj
+<<
+/Contents 5 0 R
+/MediaBox [ 0 0 595.2756 841.8898 ]
+/Parent 1 0 R
+/Resources <<
+/Font <<
+/F1 6 0 R
+/F10f4555aa-c5cd-4267-8cf6-ad64a60fe477 <<
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+/Name /F1
+/Subtype /Type1
+/Type /Font
+>>
+>>
+/ProcSet [ /ImageI /Text /ImageC /ImageB /PDF ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Annots [ ]
+>>
+endobj
+4 0 obj
+<<
+/Type /Catalog
+/Pages 1 0 R
+>>
+endobj
+5 0 obj
+<<
+/Length 216
+>>
+stream
+q
+1 0 0 1 0 0 cm
+BT
+/F1 12 Tf
+14.4 TL
+ET
+BT
+1 0 0 1 300 3 Tm
+(Hello\054World) Tj
+T*
+ET
+Q
+q
+1 0 0 1 0 0 cm
+BT
+/F10f4555aa-c5cd-4267-8cf6-ad64a60fe477 12 Tf
+14.4 TL
+ET
+BT
+1 0 0 1 100 500 Tm
+(Hello\040world) Tj
+T*
+ET
+Q
+
+endstream
+endobj
+6 0 obj
+<<
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+/Name /F1
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000009 00000 n 
+0000000068 00000 n 
+0000000108 00000 n 
+0000000461 00000 n 
+0000000510 00000 n 
+0000000777 00000 n 
+trailer
+<<
+/Size 7
+/Root 4 0 R
+/Info 2 0 R
+>>
+startxref
+884
+%%EOF
