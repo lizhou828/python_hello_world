@@ -11,6 +11,7 @@ slide = prs.slides.add_slide(prs.slide_layouts[5])
 chart_data = ChartData()
 chart_data.categories = ['East', 'West', 'Midwest']
 chart_data.add_series('Series 1', (19.2, 21.4, 16.7))
+chart_data.add_series('Series 2', (9.2, 2.4, 6.7))
 
 # 将图表添加到幻灯片 --------------------
 x, y, cx, cy = Inches(2), Inches(2), Inches(6), Inches(4.5)
