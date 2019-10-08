@@ -10,5 +10,7 @@
 
 
 [java使用poi操作PPT读取模板流，生成新PPT文件](https://blog.csdn.net/ccmedu/article/details/79267147)
-[java使用freemark导出PPT的方法](https://blog.csdn.net/super_DuoLa/article/details/80582410)
 
+[poi生成动态模板ppt报告](https://blog.csdn.net/HuHui_/article/details/83350049)
+
+[poi操作ppt生成图表](https://blog.csdn.net/starandsea/article/details/51741328)
