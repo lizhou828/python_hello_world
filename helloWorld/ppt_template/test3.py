@@ -8,7 +8,7 @@ from pptx.enum.chart import XL_LEGEND_POSITION
 
 if __name__ == '__main__':
 	# 创建幻灯片 ------
-	prs = Presentation('template.pptx')
+	prs = Presentation()
 	title_only_slide_layout = prs.slide_layouts[5]
 	slide = prs.slides.add_slide(title_only_slide_layout)
 	shapes = slide.shapes
