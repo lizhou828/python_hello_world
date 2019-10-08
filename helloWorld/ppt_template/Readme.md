@@ -10,7 +10,9 @@
 
 
 [java使用poi操作PPT读取模板流，生成新PPT文件](https://blog.csdn.net/ccmedu/article/details/79267147)
-
 [poi生成动态模板ppt报告](https://blog.csdn.net/HuHui_/article/details/83350049)
-
 [poi操作ppt生成图表](https://blog.csdn.net/starandsea/article/details/51741328)
+
+
+[用Java实现PPT转换成PDF的一种方式－－openoffice的使用](https://blog.csdn.net/u010188178/article/details/83344418)
+[java实现PPT转化为PDF](https://www.jb51.net/article/141641.htm)
