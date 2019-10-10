@@ -61,6 +61,9 @@ if __name__ == '__main__':
 	table.cell(3, 2).text = str(val_AI3[1])
 	table.cell(3, 3).text = str(val_AI3[2])
 
+
+
+
 	# 定义图表数据 ---------------------
 	chart_data = ChartData()
 	chart_data.categories = name_objects
@@ -89,4 +92,4 @@ if __name__ == '__main__':
 	value_axis.axis_title.text_frame.text = "False positive"
 	value_axis.axis_title.text_frame.auto_size
 
-	prs.save('test_template.pptx')
+	prs.save('test_table_chart.pptx')

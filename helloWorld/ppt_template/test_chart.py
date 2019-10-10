@@ -19,4 +19,4 @@ slide.shapes.add_chart(
 	XL_CHART_TYPE.COLUMN_CLUSTERED, x, y, cx, cy, chart_data
 )
 
-prs.save(r"C:\Users\Administrator\Desktop\chart-01.pptx")
+prs.save("test_chart.pptx")

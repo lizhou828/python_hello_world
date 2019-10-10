@@ -70,3 +70,11 @@
 
     Scrapy：Python的爬虫框架
     Scrapy是一个使用Python编写的，轻量级的，简单轻巧，并且使用起来非常的方便。
+    
+    
+## 管理依赖文件
+    创建依赖文件
+    pip freeze > requirements.txt
+    
+    安装依赖文件
+    pip install -r requirements.txt 

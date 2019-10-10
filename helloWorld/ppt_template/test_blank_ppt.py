@@ -12,4 +12,4 @@ subtitle = slide.placeholders[1]
 title.text = "Hello, World!"
 subtitle.text = "pip install python-pptx"
 
-prs.save(r"C:\Users\Administrator\Desktop\test.pptx")
+prs.save("test_blank_ppt.pptx")
