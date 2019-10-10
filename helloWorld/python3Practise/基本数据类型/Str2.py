@@ -1,4 +1,6 @@
 print("#格式化输出 占位符" + "-"*100)
+# 在学习Python中三种很重要的格式化字符串占位符方法，长见识了！ http://blog.az009.com/310.html
+
 
 # 占位符	说明
 # %s	字符串(采用str()的显示)
@@ -18,12 +20,12 @@ print("#格式化输出 占位符" + "-"*100)
 
 print("I like %s " % "python")
 print("%d years" % 15)
-print("Suzhou is more than %d years. %s lives in here." % (2500, "qiwsir"));
+print("Suzhou is more than %d years. %s lives in here." % (2500, "qiwsir"))
 print("Today's temperature is %.2f" % 12.235)
 print( "Today's temperature is %+.2f" % 12.235)
 
 print("I like {0}".format("python")) #这就是python非常提倡的string.format()的格式化方法，其中{索引值}作为占位符，
-print("Suzhou is more than {year} years. {name} lives in here.".format(year=2500, name="qiwsir"));
+print("Suzhou is more than {year} years. {name} lives in here.".format(year=2500, name="qiwsir"))
 lang = "python   hahaha"
 print("I love %(program)s" % {"program":lang})
 
