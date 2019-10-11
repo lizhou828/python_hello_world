@@ -8,6 +8,7 @@
 
 [python-pptx官方文档](https://python-pptx.readthedocs.io/en/stable/user/quickstart.html)
 麻痹的，还是官方文档能解决问题!!!!!
+[python pptx change entire table font size](https://stackoverflow.com/questions/40343921/python-pptx-change-entire-table-font-size)
 
 [python-pptx库中文文档及使用样例](https://blog.csdn.net/u011932355/article/details/73287248)
 

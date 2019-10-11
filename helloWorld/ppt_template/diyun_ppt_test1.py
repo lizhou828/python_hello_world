@@ -21,11 +21,14 @@ diyun_ppt_page_handler.handler_page_4(prs.slides[3])
 page4_seconds_spend = int(time.time() - page4_start_time)
 print("PPT第4页处理完成，耗时：%d 秒" % page4_seconds_spend)
 
-#第27页 插入图片
-page27_start_time = time.time()
-diyun_ppt_page_handler.handler_page_27(prs.slides[26])
-page27_seconds_spend = int(time.time() - page27_start_time)
-print("PPT第27页，插入地图的截图完成，耗时：%d 秒" % page27_seconds_spend)
+#处理第12页，插入百度地图的截图
+page12_start_time = time.time()
+diyun_ppt_page_handler.handler_page_12(prs.slides[11])
+page12_seconds_spend = int(time.time() - page12_start_time)
+print("PPT第12页，插入地图的截图完成，耗时：%d 秒" % page12_seconds_spend)
+
+#处理第14页，插入3个table
+diyun_ppt_page_handler.handler_page_14_new(prs.slides[13])
 
 #追加一页默认样式的空白页，测试插入图标和表格
 lastpage_start_time = time.time()
