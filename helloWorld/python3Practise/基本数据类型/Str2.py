@@ -55,3 +55,31 @@ d = c.split(".")
 print(d)
 print(type(d))
 print("#".join(d))
+
+
+
+# 函数 str.format()，增强了字符串格式化的功能;不仅可以传入字符、数字,还可以将字典及list作为参数传入。
+# 1、传入list
+words = [1,2,3,4,5,6,7,8,9]
+runDay = '2018-05-06'
+insert_sql ='{0},insert_sql("{1}",  "{2}",  "{3}", "{4}", "{5}", "{6}", "{7}", "{8}", "{9}")'.format(runDay, *words).replace('"', "'").replace('`', '\`')
+
+print(insert_sql)
+print(words)
+
+# list的其他传入样式:
+my_list = ['格式化输出', 'www.csdn.net']
+print("网站名：{0[0]}, 地址 {0[1]}".format(my_list))# "0" 是可选的
+print('"{0}",  "{1}"'.format(*my_list))
+print('{0},"{1}",  "{2}"'.format(runDay, *my_list))
+
+# 2、传入dict
+site = {"name": "格式化输出", "url": "www.csdn.net"}
+print("网站名：{name}, 地址 {url}".format(**site))
+
+# 3、说明
+# 传入list时,是将list名将加"*";而传入字典时是将dict名前加"**"。否则会报错:TypeError: format() argument after ** must be a mapping, not list。
+# 格式化参数的顺序是按(0,1,2,3,...)的顺序排下来的;但这个顺序是要传入的各个参数的顺序,而非对应的list或dict里的顺序。
+# ————————————————
+# 版权声明：本文为CSDN博主「BabyFish13」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。
+# 原文链接：https://blog.csdn.net/BabyFish13/article/details/80223038
