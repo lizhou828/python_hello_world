@@ -5,11 +5,25 @@
     pip3 install python-pptx
     
 # 参考文档
+
+[python-pptx官方文档](https://python-pptx.readthedocs.io/en/stable/user/quickstart.html)
+麻痹的，还是官方文档能解决问题!!!!!
+
+[python-pptx库中文文档及使用样例](https://blog.csdn.net/u011932355/article/details/73287248)
+
 [python生成ppt的方法](https://www.jb51.net/article/141636.htm)    
 
 [实战 | Python自动生成PPT分析报告](https://www.sohu.com/a/164157866_505802)
 
 [利用python自动生成数据分析PPT报告](https://github.com/lizhou828/py-pptx)
+
+[python-pptx对已有ppt进行修改注意事项](https://blog.csdn.net/u013747832/article/details/78682817)
+
+[python提取PPT中的文字（包括图片中的文字)](https://blog.csdn.net/qq_41020281/article/details/99894064)
+
+[小白学Python（4）——用Python创建PPT](https://www.cnblogs.com/adam012019/p/11344980.html)
+
+
 
 
 

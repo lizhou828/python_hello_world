@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
 '''获取当前日期前后N天或N月的日期'''
-
+import time
 from time import strftime, localtime
 from datetime import timedelta, date
+import datetime
 import calendar
 
 year = strftime("%Y",localtime())
@@ -25,7 +26,7 @@ def todaystr():
     '''
     return year+mon+day
 
-def datetime():
+def _datetime():
     '''''
     get datetime,format="YYYY-MM-DD HH:MM:SS"
     '''
@@ -73,8 +74,20 @@ def get_firstday_of_month(year,mon):
 if __name__=="__main__":
     print(today())
     print(todaystr())
-    print(datetime())
+    print(_datetime())
     print(datetimestr())
     print(get_day_of_day(7))
     print(get_day_of_day(-7))
 
+    # 耗时监测1
+    start_time = datetime.datetime.now()
+    time.sleep(5)
+    end_time = datetime.datetime.now()
+    time_cost = end_time - start_time
+    print(str(time_cost).split('.')[0])
+
+    # 耗时监测2
+    start_time = time.time()
+    time.sleep(3)
+    seconds=int(time.time() - start_time)
+    print("耗时：%d 秒" % seconds)

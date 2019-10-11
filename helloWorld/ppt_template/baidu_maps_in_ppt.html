@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+    <style type="text/css">
+        body, html, #allmap {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+            font-family: "微软雅黑";
+        }
+    </style>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=as6GuCXVQRxGXwOsRNGv4TS5"></script>
+    <title>添加多个标注点</title>
+</head>
+<body>
+<div id="allmap"></div>
+</body>
+</html>
+<script type="text/javascript">
+    // 百度地图API功能
+    var map = new BMap.Map("allmap");
+    center_point_icon = new BMap.Icon("center_point.png", new BMap.Size(35, 35));
+    var point = new BMap.Point(114.225651, 22.737764);
+    var marker = new BMap.Marker(point,{icon:center_point_icon});
+    map.addOverlay(marker);
+
+    map.centerAndZoom(point, 14);
+
+
+    var circle = new BMap.Circle(point,5000,{fillColor:"blue", strokeWeight: 1 ,fillOpacity: 0.1, strokeOpacity: 0.1,enableEditing:true});
+    map.addOverlay(circle);
+
+    // 自定义标注图标
+    var myIcon = new BMap.Icon("maker_icon.png", new BMap.Size(30, 40));
+
+    // 编写自定义函数,创建标注
+    function addMarker(point,_index) {
+        var marker = new BMap.Marker(point,{icon:myIcon});
+        map.addOverlay(marker);
+        var label = new BMap.Label(_index, {offset: new BMap.Size(8, 8)});
+        marker.setLabel(label);
+    }
+
+    // 随机向地图添加10个标注
+    var bounds = map.getBounds();
+    var sw = bounds.getSouthWest();
+    var ne = bounds.getNorthEast();
+    var lngSpan = Math.abs(sw.lng - ne.lng);
+    var latSpan = Math.abs(ne.lat - sw.lat);
+    for (var i = 1; i < 12; i++) {
+        var point = new BMap.Point(sw.lng + lngSpan * (Math.random() * 0.7), ne.lat - latSpan * (Math.random() * 0.7));
+        addMarker(point,i);
+    }
+
+    map.enableScrollWheelZoom();   //启用滚轮放大缩小，默认禁用
+	map.enableContinuousZoom();    //启用地图惯性拖拽，默认禁用
+</script>
