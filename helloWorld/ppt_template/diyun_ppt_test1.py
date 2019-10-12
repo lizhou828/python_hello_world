@@ -37,8 +37,13 @@ diyun_ppt_page_handler.handler_page_14_new(prs.slides[13])
 #处理第18页，table中动态插入多行
 diyun_ppt_page_handler.handler_page_18(prs.slides[17])
 
-#处理第20页，table中动态插入多行
+#处理第20-24页，插入table及其数据
 diyun_ppt_page_handler.handler_page_20(prs.slides[19])
+diyun_ppt_page_handler.handler_page_21(prs.slides[20])
+diyun_ppt_page_handler.handler_page_22(prs.slides[21])
+diyun_ppt_page_handler.handler_page_23(prs.slides[22])
+diyun_ppt_page_handler.handler_page_24(prs.slides[23])
+
 
 
 #追加一页默认样式的空白页，测试插入图标和表格

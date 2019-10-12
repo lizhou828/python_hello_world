@@ -403,6 +403,202 @@ class diyun_ppt_page_handler():
 							run.font.size = Pt(12)
 							run.font.color.rgb = RGBColor(0, 0, 0)  # 黑色字体
 
+	@staticmethod
+	def handler_page_21(slide21):
+		table_data = []
+		row_data1 = {"name":"和平实验小学","distance":"0.8","lng":"113.1051556943977","lat":"23.0192965357819"}
+		table_data.append(row_data1)
+		row_data2 = {"name":"民治小学","distance":"1.8","lng":"113.1051356943977","lat":"23.0191965357819"}
+		table_data.append(row_data2)
+		row_data3 = {"name": "深圳高级中学(集团)北校区", "distance":"2.8","lng": "113.1051356943977", "lat": "23.0191965357819"}
+		table_data.append(row_data3)
+		row_data4 = {"name": "希望中学", "distance":"3.8","lng": "113.1051356943977", "lat": "23.0191965357819"}
+		table_data.append(row_data4)
+
+		# 表格样式 --------------------
+		rows = len(table_data)+1
+		cols = 3
+		top = Cm(2)
+		left = Cm(16)  # Inches(2.0)
+		width = Cm(10)  # Inches(6.0)
+		height = Cm(2)  # Inches(0.8)
+
+		# 添加表格到幻灯片 --------------------
+		table = slide21.shapes.add_table(rows, cols, left, top, width, height).table
+		# 设置单元格宽度
+		table.columns[0].width = Cm(2)  # Inches(2.0)
+		table.columns[1].width = Cm(4)
+		table.columns[2].width = Cm(3)
+
+		# 插入数据到table
+		for row_index in range(len(table.rows)):
+			if row_index == 0:
+				table.rows[row_index].cells[0].text="编号"
+				table.rows[row_index].cells[1].text = "名称"
+				table.rows[row_index].cells[2].text = "距离(km)"
+				continue
+			for cell_index in range(len(table.rows[row_index].cells)):
+				if cell_index == 0:
+					table.rows[row_index].cells[cell_index].text = str(row_index)
+				if cell_index == 1:
+					table.rows[row_index].cells[cell_index].text = table_data[row_index-1].get("name")
+				if cell_index == 2:
+					table.rows[row_index].cells[cell_index].text = table_data[row_index-1].get("distance")
+
+		# 处理table的样式、字体等
+		for cell in diyun_ppt_page_handler.iter_cells(table):
+					for paragraph in cell.text_frame.paragraphs:
+						for run in paragraph.runs:
+							run.font.size = Pt(12)
+							run.font.color.rgb = RGBColor(0, 0, 0)  # 黑色字体
+
+
+	@staticmethod
+	def handler_page_22(slide22):
+		table_data = []
+		row_data1 = {"name":"深圳市第一人民医院","distance":"0.8","lng":"113.1051556943977","lat":"23.0192965357819"}
+		table_data.append(row_data1)
+		row_data2 = {"name":"龙岗人民医院","distance":"1.8","lng":"113.1051356943977","lat":"23.0191965357819"}
+		table_data.append(row_data2)
+		row_data3 = {"name": "香港中文大学附属第一人民医院", "distance":"2.8","lng": "113.1051356943977", "lat": "23.0191965357819"}
+		table_data.append(row_data3)
+		row_data4 = {"name": "南方科技大学附属第一人民医院", "distance":"3.8","lng": "113.1051356943977", "lat": "23.0191965357819"}
+		table_data.append(row_data4)
+
+		# 表格样式 --------------------
+		rows = len(table_data)+1
+		cols = 3
+		top = Cm(2)
+		left = Cm(16)  # Inches(2.0)
+		width = Cm(10)  # Inches(6.0)
+		height = Cm(2)  # Inches(0.8)
+
+		# 添加表格到幻灯片 --------------------
+		table = slide22.shapes.add_table(rows, cols, left, top, width, height).table
+		# 设置单元格宽度
+		table.columns[0].width = Cm(2)  # Inches(2.0)
+		table.columns[1].width = Cm(4)
+		table.columns[2].width = Cm(3)
+
+		# 插入数据到table
+		for row_index in range(len(table.rows)):
+			if row_index == 0:
+				table.rows[row_index].cells[0].text="编号"
+				table.rows[row_index].cells[1].text = "名称"
+				table.rows[row_index].cells[2].text = "距离(km)"
+				continue
+			for cell_index in range(len(table.rows[row_index].cells)):
+				if cell_index == 0:
+					table.rows[row_index].cells[cell_index].text = str(row_index)
+				if cell_index == 1:
+					table.rows[row_index].cells[cell_index].text = table_data[row_index-1].get("name")
+				if cell_index == 2:
+					table.rows[row_index].cells[cell_index].text = table_data[row_index-1].get("distance")
+
+		# 处理table的样式、字体等
+		for cell in diyun_ppt_page_handler.iter_cells(table):
+					for paragraph in cell.text_frame.paragraphs:
+						for run in paragraph.runs:
+							run.font.size = Pt(12)
+							run.font.color.rgb = RGBColor(0, 0, 0)  # 黑色字体
+
+	@staticmethod
+	def handler_page_23(slide23):
+		table_data = []
+		row_data1 = {"name": "九方购物中心(人民路)", "distance": "0.8", "lng": "113.1051556943977", "lat": "23.0192965357819"}
+		table_data.append(row_data1)
+		row_data2 = {"name": "中海环宇新天地", "distance": "1.8", "lng": "113.1051356943977", "lat": "23.0191965357819"}
+		table_data.append(row_data2)
+		row_data3 = {"name": "U·ONE优城", "distance": "2.8", "lng": "113.1051356943977", "lat": "23.0191965357819"}
+		table_data.append(row_data3)
+		row_data4 = {"name": "汇龙时代广场", "distance": "3.8", "lng": "113.1051356943977", "lat": "23.0191965357819"}
+		table_data.append(row_data4)
+
+		# 表格样式 --------------------
+		rows = len(table_data) + 1
+		cols = 3
+		top = Cm(2)
+		left = Cm(16)  # Inches(2.0)
+		width = Cm(10)  # Inches(6.0)
+		height = Cm(2)  # Inches(0.8)
+
+		# 添加表格到幻灯片 --------------------
+		table = slide23.shapes.add_table(rows, cols, left, top, width, height).table
+		# 设置单元格宽度
+		table.columns[0].width = Cm(2)  # Inches(2.0)
+		table.columns[1].width = Cm(4)
+		table.columns[2].width = Cm(3)
+
+		# 插入数据到table
+		for row_index in range(len(table.rows)):
+			if row_index == 0:
+				table.rows[row_index].cells[0].text = "编号"
+				table.rows[row_index].cells[1].text = "名称"
+				table.rows[row_index].cells[2].text = "距离(km)"
+				continue
+			for cell_index in range(len(table.rows[row_index].cells)):
+				if cell_index == 0:
+					table.rows[row_index].cells[cell_index].text = str(row_index)
+				if cell_index == 1:
+					table.rows[row_index].cells[cell_index].text = table_data[row_index - 1].get("name")
+				if cell_index == 2:
+					table.rows[row_index].cells[cell_index].text = table_data[row_index - 1].get("distance")
+
+		# 处理table的样式、字体等
+		for cell in diyun_ppt_page_handler.iter_cells(table):
+			for paragraph in cell.text_frame.paragraphs:
+				for run in paragraph.runs:
+					run.font.size = Pt(12)
+					run.font.color.rgb = RGBColor(0, 0, 0)  # 黑色字体
+
+	@staticmethod
+	def handler_page_24(slide24):
+		table_data = []
+		row_data1 = {"name": "深圳市福田区政府", "distance": "0.8", "lng": "113.1051556943977", "lat": "23.0192965357819"}
+		table_data.append(row_data1)
+		row_data2 = {"name": "深圳市南山区政府", "distance": "1.8", "lng": "113.1051356943977", "lat": "23.0191965357819"}
+		table_data.append(row_data2)
+		row_data3 = {"name": "深圳市宝安区政府", "distance": "2.8", "lng": "113.1051356943977", "lat": "23.0191965357819"}
+		table_data.append(row_data3)
+		row_data4 = {"name": "宝山街道居委会", "distance": "3.8", "lng": "113.1051356943977", "lat": "23.0191965357819"}
+		table_data.append(row_data4)
+
+		# 表格样式 --------------------
+		rows = len(table_data) + 1
+		cols = 3
+		top = Cm(2)
+		left = Cm(16)  # Inches(2.0)
+		width = Cm(10)  # Inches(6.0)
+		height = Cm(2)  # Inches(0.8)
+
+		# 添加表格到幻灯片 --------------------
+		table = slide24.shapes.add_table(rows, cols, left, top, width, height).table
+		# 设置单元格宽度
+		table.columns[0].width = Cm(2)  # Inches(2.0)
+		table.columns[1].width = Cm(4)
+		table.columns[2].width = Cm(3)
+
+		# 插入数据到table
+		for row_index in range(len(table.rows)):
+			if row_index == 0:
+				table.rows[row_index].cells[0].text = "编号"
+				table.rows[row_index].cells[1].text = "名称"
+				table.rows[row_index].cells[2].text = "距离(km)"
+				continue
+			for cell_index in range(len(table.rows[row_index].cells)):
+				if cell_index == 0:
+					table.rows[row_index].cells[cell_index].text = str(row_index)
+				if cell_index == 1:
+					table.rows[row_index].cells[cell_index].text = table_data[row_index - 1].get("name")
+				if cell_index == 2:
+					table.rows[row_index].cells[cell_index].text = table_data[row_index - 1].get("distance")
+
+		# 处理table的样式、字体等
+		for cell in diyun_ppt_page_handler.iter_cells(table):
+			for paragraph in cell.text_frame.paragraphs:
+				for run in paragraph.runs:
+					run.font.size = Pt(12)
+					run.font.color.rgb = RGBColor(0, 0, 0)  # 黑色字体
 
 	@staticmethod
 	def handler_test_in_last_page(presentation):
