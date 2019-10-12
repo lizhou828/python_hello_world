@@ -8,6 +8,7 @@ from pptx.util import Inches
 from pptx import Presentation
 from pptx.chart.data import ChartData
 from pptx.enum.chart import XL_CHART_TYPE
+from pptx.enum.chart import XL_LEGEND_POSITION
 from pptx.util import Cm  # Inches
 
 from helloWorld.ppt_template.screenshot_test import  getScreenShotForDiyunLandReport
@@ -65,6 +66,89 @@ class diyun_ppt_page_handler():
 		p1 = slide4_shapes[4].text_frame.paragraphs[0]
 		run1 = p1.add_run()
 		run1.text = text
+
+		data_dict={"area_14":"12","area_15":"13","area_16":"14","area_17":"15","area_18":"16",
+				   "area_14s":"0.2","area_15s":"0.3","area_16s":"0.4","area_17s":"0.5","area_18s":"0.6",
+				   "per_14":"22","per_15":"13","per_16":"14","per_17":"15","per_18":"26",
+				   "per_14s":"2.2","per_15s":"0.3","per_16s":"0.4","per_17s":"0.5","per_18s":"2.6",}
+		graphicFrames = slide4.shapes
+		for graphicFrame in graphicFrames:
+			if type(graphicFrame) != GraphicFrame or not graphicFrame.has_table:
+				continue
+			for cell in diyun_ppt_page_handler.iter_cells(graphicFrame.table):
+				if "{" not in cell.text and "}" not in cell.text:
+					continue
+				cell.text = cell.text.format(**data_dict)
+
+			for cell in diyun_ppt_page_handler.iter_cells(graphicFrame.table):
+				for paragraph in cell.text_frame.paragraphs:
+					for run in paragraph.runs:
+						run.font.size = Pt(12)
+						run.font.color.rgb = RGBColor(0, 0, 0)  # 黑色字体
+
+	@staticmethod
+	def handler_page_5(slide5):
+		# 堆积柱形图：定义图表数据 ---------------------
+		chart_data = ChartData()
+		chart_data.categories = ['2014', '2015', '2016', '2017', '2018']
+		production1data = (19.2, 21.4, 16.7,13,15)
+		production2data = (9.2, 2.4, 6.7,12,13.5)
+		production3data = (9.2, 2.4, 6.7,14.1,5.2)
+		productionDataMap ={}
+		productionDataMap["production1data"] = production1data
+		productionDataMap["production2data"] = production2data
+		productionDataMap["production3data"] = production3data
+
+		chart_data.add_series('第一产业', production1data)
+		chart_data.add_series('第二产业', production2data)
+		chart_data.add_series('第三产业', production3data)
+
+
+		# 堆积柱形图：将图表添加到幻灯片 --------------------
+		left, top, width, height = Inches(1), Inches(1.3), Inches(8), Inches(3.5)
+		graphic_frame = slide5.shapes.add_chart(
+			XL_CHART_TYPE.COLUMN_STACKED, left, top, width, height, chart_data
+		)
+		chart = graphic_frame.chart
+		chart.has_legend = True
+		chart.legend.position = XL_LEGEND_POSITION.BOTTOM
+		chart.legend.include_in_layout = False
+		graphic_frame.has_title = True
+		graphic_frame.chart.chart_title.text_frame.text = "深圳市产业结构"
+
+
+		# 定制柱状图颜色
+		colors = {}
+		colors['第一产业'] = 'FFD700'
+		colors['第二产业'] = '32CD32'
+		colors['第三产业'] = '1E90FF'
+		for series in chart.series:
+			if series.name in colors:
+				fill = series.format.fill  # fill the legend as well
+				fill.solid()
+				fill.fore_color.rgb = RGBColor.from_string(colors[series.name])
+
+
+		# 把数据填充到table中
+		graphicFrames = slide5.shapes
+		for graphicFrame in graphicFrames:
+			if type(graphicFrame) != GraphicFrame or not graphicFrame.has_table:
+				continue
+			for row_index in range(len(graphicFrame.table.rows)):
+				if row_index == 0:
+					continue
+				row_data = productionDataMap.get("production{}data".format(row_index))
+				for column_index in range(len(graphicFrame.table.rows[row_index].cells)):
+					if column_index == 0:
+						continue
+					# 插入数据到 每个单元格
+					graphicFrame.table.rows[row_index].cells[column_index].text = str(row_data[column_index-1])
+
+					# 处理 每个单元格 的样式
+					for paragraph in graphicFrame.table.rows[row_index].cells[column_index].text_frame.paragraphs:
+						for run in paragraph.runs:
+							run.font.size = Pt(12)
+							run.font.color.rgb = RGBColor(0, 0, 0)  # 黑色字体
 
 	@staticmethod
 	def handler_page_12(slide12):
@@ -200,6 +284,124 @@ class diyun_ppt_page_handler():
 						run.font.size = Pt(12)
 						run.font.color.rgb = RGBColor(0, 0, 0)  # 黑色字体
 
+	@staticmethod
+	def handler_page_18(slide18):
+		table_data = []
+		row_data1 = {"name":"东方盛世花园二期","time":"2018-10-08","type":"板楼","price":"73638.73","lng":"113.1051556943977","lat":"23.0192965357819"}
+		table_data.append(row_data1)
+		row_data2 = {"name":"深业泰富广场","time":"2019-08-08","type":"板塔结合","price":"59228.69","lng":"113.1051356943977","lat":"23.0191965357819"}
+		table_data.append(row_data2)
+		row_data3 = {"name": "深业泰富广场", "time": "2019-08-08", "type": "板塔结合", "price": "59228.69", "lng": "113.1051356943977", "lat": "23.0191965357819"}
+		table_data.append(row_data3)
+		row_data4 = {"name": "深业泰富广场", "time": "2019-08-08", "type": "板塔结合", "price": "59228.69","lng": "113.1051356943977", "lat": "23.0191965357819"}
+		table_data.append(row_data4)
+		row_data5 = {"name": "深业泰富广场", "time": "2019-08-08", "type": "板塔结合", "price": "59228.69","lng": "113.1051356943977", "lat": "23.0191965357819"}
+		table_data.append(row_data5)
+
+		row_data6 = {"name": "深业泰富广场", "time": "2019-08-08", "type": "板塔结合", "price": "59228.69","lng": "113.1051356943977", "lat": "23.0191965357819"}
+		table_data.append(row_data6)
+		row_data7 = {"name": "深业泰富广场", "time": "2019-08-08", "type": "板塔结合", "price": "59228.69","lng": "113.1051356943977", "lat": "23.0191965357819"}
+		table_data.append(row_data7)
+		row_data8 = {"name": "深业泰富广场", "time": "2019-08-08", "type": "板塔结合", "price": "59228.69","lng": "113.1051356943977", "lat": "23.0191965357819"}
+		table_data.append(row_data8)
+		row_data9 = {"name": "深业泰富广场", "time": "2019-08-08", "type": "板塔结合", "price": "59228.69","lng": "113.1051356943977", "lat": "23.0191965357819"}
+		table_data.append(row_data9)
+		row_data10 = {"name": "深业泰富广场", "time": "2019-08-08", "type": "板塔结合", "price": "59228.69","lng": "113.1051356943977", "lat": "23.0191965357819"}
+		table_data.append(row_data10)
+
+		# 表格样式 --------------------
+		rows = len(table_data)+1
+		cols = 5
+		top = Cm(2)
+		left = Cm(13.5)  # Inches(2.0)
+		width = Cm(10)  # Inches(6.0)
+		height = Cm(2)  # Inches(0.8)
+
+		# 添加表格到幻灯片 --------------------
+		table = slide18.shapes.add_table(rows, cols, left, top, width, height).table
+		# 设置单元格宽度
+		table.columns[0].width = Cm(1.5)  # Inches(2.0)
+		table.columns[1].width = Cm(3)
+		table.columns[2].width = Cm(3)
+		table.columns[3].width = Cm(2)
+		table.columns[4].width = Cm(2.5)
+
+		# 插入数据到table
+		for row_index in range(len(table.rows)):
+			if row_index == 0:
+				table.rows[row_index].cells[0].text="编号"
+				table.rows[row_index].cells[1].text = "名称"
+				table.rows[row_index].cells[2].text = "开盘时间"
+				table.rows[row_index].cells[3].text = "产品类型"
+				table.rows[row_index].cells[4].text = "成交价格(元/㎡)"
+				continue
+			for cell_index in range(len(table.rows[row_index].cells)):
+				if cell_index == 0:
+					table.rows[row_index].cells[cell_index].text = str(row_index)
+				if cell_index == 1:
+					table.rows[row_index].cells[cell_index].text = table_data[row_index-1].get("name")
+				if cell_index == 2:
+					table.rows[row_index].cells[cell_index].text = table_data[row_index-1].get("time")
+				if cell_index == 3:
+					table.rows[row_index].cells[cell_index].text = table_data[row_index-1].get("type")
+				if cell_index == 4:
+					table.rows[row_index].cells[cell_index].text = table_data[row_index-1].get("price")
+
+		# 处理table的样式、字体等
+		for cell in diyun_ppt_page_handler.iter_cells(table):
+					for paragraph in cell.text_frame.paragraphs:
+						for run in paragraph.runs:
+							run.font.size = Pt(12)
+							run.font.color.rgb = RGBColor(0, 0, 0)  # 黑色字体
+
+	@staticmethod
+	def handler_page_20(slide20):
+		table_data = []
+		row_data1 = {"name":"宝安国际机场（飞机场）","distance":"0.8","lng":"113.1051556943977","lat":"23.0192965357819"}
+		table_data.append(row_data1)
+		row_data2 = {"name":"龙塘新村西(公交站)","distance":"1.8","lng":"113.1051356943977","lat":"23.0191965357819"}
+		table_data.append(row_data2)
+		row_data3 = {"name": "红山地铁站(公交站)", "distance":"2.8","lng": "113.1051356943977", "lat": "23.0191965357819"}
+		table_data.append(row_data3)
+		row_data4 = {"name": "深业泰富广场(公交站)", "distance":"3.8","lng": "113.1051356943977", "lat": "23.0191965357819"}
+		table_data.append(row_data4)
+
+		# 表格样式 --------------------
+		rows = len(table_data)+1
+		cols = 3
+		top = Cm(2)
+		left = Cm(16)  # Inches(2.0)
+		width = Cm(10)  # Inches(6.0)
+		height = Cm(2)  # Inches(0.8)
+
+		# 添加表格到幻灯片 --------------------
+		table = slide20.shapes.add_table(rows, cols, left, top, width, height).table
+		# 设置单元格宽度
+		table.columns[0].width = Cm(2)  # Inches(2.0)
+		table.columns[1].width = Cm(4)
+		table.columns[2].width = Cm(3)
+
+		# 插入数据到table
+		for row_index in range(len(table.rows)):
+			if row_index == 0:
+				table.rows[row_index].cells[0].text="编号"
+				table.rows[row_index].cells[1].text = "名称"
+				table.rows[row_index].cells[2].text = "距离(km)"
+				continue
+			for cell_index in range(len(table.rows[row_index].cells)):
+				if cell_index == 0:
+					table.rows[row_index].cells[cell_index].text = str(row_index)
+				if cell_index == 1:
+					table.rows[row_index].cells[cell_index].text = table_data[row_index-1].get("name")
+				if cell_index == 2:
+					table.rows[row_index].cells[cell_index].text = table_data[row_index-1].get("distance")
+
+		# 处理table的样式、字体等
+		for cell in diyun_ppt_page_handler.iter_cells(table):
+					for paragraph in cell.text_frame.paragraphs:
+						for run in paragraph.runs:
+							run.font.size = Pt(12)
+							run.font.color.rgb = RGBColor(0, 0, 0)  # 黑色字体
 
 
 	@staticmethod
