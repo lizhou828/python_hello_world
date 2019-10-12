@@ -262,7 +262,7 @@ class diyun_ppt_page_handler():
 		data_dict = {'land_location':'白云区白云新城AB2906009地块',"land_sn":"ab2906009","land_use_details":"城镇住宅用地","type":"挂牌","land_total_area":"67695.0000",
 					 "sale_time":"70","plot_ratio":"大于1并且小于或等于5.5","building_density":"小于或等于30","greening_rate":"大于或等于35","building_limited_height":"小于或等于120",
 					 "open_end_time":"2019-06-14 10:00:00","cash_deposit":"12300.0000","publish_time":"2019-05-16 00:00:00","open_start_time":"2019-06-04 00:00:00","starting_price":"193660.0000","price_increase":"3000.0000",
-					 "contract_signing_date":"2019-06-25 00:00:00","transaction_price":"280807.0000","land_owner":"广州市瑞业房地产开发有限公司","floor_area_price":"","premium_rate":""}
+					 "contract_signing_date":"2019-06-25 00:00:00","transaction_price":"280807.0000","land_owner":"广州市瑞业房地产开发有限公司","floor_area_price":"","premium_rate":"0.13"}
 
 		graphicFrames = slide14.shapes
 		for graphicFrame in graphicFrames:
@@ -283,6 +283,19 @@ class diyun_ppt_page_handler():
 					for run in paragraph.runs:
 						run.font.size = Pt(12)
 						run.font.color.rgb = RGBColor(0, 0, 0)  # 黑色字体
+
+	@staticmethod
+	def handler_page_16(slide16):
+		land_datas = []
+		land_data1 = {'land_location': '白云区白云新城AB2906009地块', "land_sn": "ab2906009", "land_use_details": "城镇住宅用地", "type": "挂牌",
+		 "land_total_area": "67695.0000",
+		 "sale_time": "70", "plot_ratio": "大于1并且小于或等于5.5", "building_density": "小于或等于30", "greening_rate": "大于或等于35",
+		 "building_limited_height": "小于或等于120",
+		 "open_end_time": "2019-06-14 10:00:00", "cash_deposit": "12300.0000", "publish_time": "2019-05-16 00:00:00",
+		 "open_start_time": "2019-06-04 00:00:00", "starting_price": "193660.0000", "price_increase": "3000.0000",
+		 "contract_signing_date": "2019-06-25 00:00:00", "transaction_price": "280807.0000",
+		 "land_owner": "广州市瑞业房地产开发有限公司", "floor_area_price": "", "premium_rate": "0.13","lng": "113.1051556943977", "lat": "23.0192965357819"}
+		land_datas.append(land_data1)
 
 	@staticmethod
 	def handler_page_18(slide18):
