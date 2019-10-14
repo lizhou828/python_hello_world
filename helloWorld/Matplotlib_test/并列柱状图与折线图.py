@@ -22,7 +22,7 @@ fmt='%.2f%%'
 yticks = mtick.FormatStrFormatter(fmt)  #设置百分比形式的坐标轴
 lx=[u'粮食',u'棉花',u'油料',u'麻类',u'糖料',u'烤烟',u'蔬菜']
 
-fig = plt.figure()
+fig = plt.figure(figsize=(6, 4)) #  width, height in inches  ， If not provided, defaults to:rc:`figure.figsize` = ``[6.4, 4.8]``.
 ax1 = fig.add_subplot(111)
 plt.title("粮食产量与增长率")
 plt.xlabel("粮食种类")
