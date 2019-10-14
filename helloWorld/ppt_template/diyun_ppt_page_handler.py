@@ -1,5 +1,7 @@
+# -*- coding: utf-8 -*-
 import os
 
+from matplotlib.font_manager import FontProperties
 from pptx.dml.color import RGBColor
 from pptx.shapes.graphfrm import GraphicFrame
 from pptx.util import Inches, Pt
@@ -11,6 +13,9 @@ from pptx.enum.chart import XL_CHART_TYPE
 from pptx.enum.chart import XL_LEGEND_POSITION
 from pptx.util import Cm  # Inches
 
+import matplotlib.pyplot as plt
+import matplotlib.ticker as mtick
+import numpy as np
 from helloWorld.ppt_template.screenshot_test import  getScreenShotForDiyunLandReport
 
 
@@ -67,10 +72,36 @@ class diyun_ppt_page_handler():
 		run1 = p1.add_run()
 		run1.text = text
 
-		data_dict={"area_14":"12","area_15":"13","area_16":"14","area_17":"15","area_18":"16",
-				   "area_14s":"0.2","area_15s":"0.3","area_16s":"0.4","area_17s":"0.5","area_18s":"0.6",
-				   "per_14":"22","per_15":"13","per_16":"14","per_17":"15","per_18":"26",
-				   "per_14s":"2.2","per_15s":"0.3","per_16s":"0.4","per_17s":"0.5","per_18s":"2.6",}
+		# 数据的处理与转化
+		table_data =[
+						{"year":"2014","production_total":32230645,"growth_rate":6.5,"per_capita_production":"24000","per_capita_growth_rate":"1.4"},
+					   	{"year": "2015", "production_total": 34649427, "growth_rate": 6, "per_capita_production": "25000","per_capita_growth_rate": "1.5"},
+					    {"year": "2016", "production_total": 37155228, "growth_rate": 6.3, "per_capita_production": "26000","per_capita_growth_rate": "1.6"},
+					    {"year": "2017", "production_total": 39784758, "growth_rate": 7, "per_capita_production": "27000","per_capita_growth_rate": "1.7"},
+					    {"year": "2018", "production_total": 46177993, "growth_rate": 5, "per_capita_production": "28000","per_capita_growth_rate": "1.8"}
+					 ]
+
+		table_dict = {}
+		year_list = []
+		area_gdp_list =[]
+		area_gdp_speed_list = []
+		per_gdp_list = []
+		per_gdp_speed_list = []
+		for map in table_data:
+			year = map.get("year")[2:4]
+			table_dict["area_" + year] = map.get("production_total")
+			table_dict["area_" + year + "s"] = map.get("growth_rate")
+			table_dict["per_" + year] = map.get("per_capita_production")
+			table_dict["per_" + year+ "s"] = map.get("per_capita_growth_rate")
+
+			year_list.append(map.get("year"))
+			area_gdp_list.append(map.get("production_total"))
+			area_gdp_speed_list.append(map.get("growth_rate"))
+			per_gdp_list.append(map.get("per_capita_production"))
+			per_gdp_speed_list.append(map.get("per_capita_growth_rate"))
+
+
+		# 把数据填充到table中
 		graphicFrames = slide4.shapes
 		for graphicFrame in graphicFrames:
 			if type(graphicFrame) != GraphicFrame or not graphicFrame.has_table:
@@ -78,7 +109,7 @@ class diyun_ppt_page_handler():
 			for cell in diyun_ppt_page_handler.iter_cells(graphicFrame.table):
 				if "{" not in cell.text and "}" not in cell.text:
 					continue
-				cell.text = cell.text.format(**data_dict)
+				cell.text = cell.text.format(**table_dict)
 
 			for cell in diyun_ppt_page_handler.iter_cells(graphicFrame.table):
 				for paragraph in cell.text_frame.paragraphs:
@@ -86,50 +117,93 @@ class diyun_ppt_page_handler():
 						run.font.size = Pt(12)
 						run.font.color.rgb = RGBColor(0, 0, 0)  # 黑色字体
 
+
+		#地区生产总值混合图
+		l = [i for i in range(len(year_list))]  # 7组数据
+		plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
+		fmt = '%.2f%%'
+		yticks = mtick.FormatStrFormatter(fmt)  # 设置百分比形式的坐标轴
+
+		fig = plt.figure(figsize=(6,6),frameon=False)
+		subplot1 = fig.add_subplot(111)
+
+
+		subplot1.plot(l, area_gdp_speed_list, 'og-', label=u'增长速度')
+		subplot1.yaxis.set_major_formatter(yticks)
+		for i, (_x, _y) in enumerate(zip(l, area_gdp_speed_list)):
+			plt.text(_x, _y, area_gdp_speed_list[i], color='black', fontsize=10, )  # 将数值显示在图形上
+		subplot1.legend(loc=1)
+		subplot1.set_ylim([min(area_gdp_speed_list), max(area_gdp_speed_list)])  # 设置y轴取值范围
+		subplot1.set_ylabel(u'增长速度(%)')
+		plt.legend(prop={'family': 'SimHei', 'size': 8})  # 右上角折线图标注，设置中文
+
+		subplot1_twinx = subplot1.twinx()  # this is the important function
+		plt.bar(l, area_gdp_list, width=0.2, alpha=0.4, color='#FFD700', label=u'地区生产总值')  # 柱形图的数据、颜色、透明度等
+		subplot1_twinx.legend(loc=2)
+		subplot1_twinx.set_ylim([0, max(area_gdp_list)])  # 设置y轴取值范围
+		subplot1_twinx.set_ylabel(u'地区生产总值(万元)')
+
+		plt.legend(prop={'family': 'SimHei', 'size': 8}, loc="upper left")  # 左上角折线图标注，
+		plt.xticks(l, year_list)
+		slide4_chart1_path = "slide4_chart1.png"
+		plt.savefig(slide4_chart1_path)
+		left, top, width, height = Inches(0.5), Inches(1), Inches(4), Inches(4)
+		slide4.shapes.add_picture(slide4_chart1_path, left, top, width, height)
+		plt.close()#如果未另指定，则该窗口将是当前窗口。
+
+
 	@staticmethod
 	def handler_page_5(slide5):
 		# 堆积柱形图：定义图表数据 ---------------------
-		chart_data = ChartData()
-		chart_data.categories = ['2014', '2015', '2016', '2017', '2018']
-		production1data = (19.2, 21.4, 16.7,13,15)
-		production2data = (9.2, 2.4, 6.7,12,13.5)
-		production3data = (9.2, 2.4, 6.7,14.1,5.2)
-		productionDataMap ={}
-		productionDataMap["production1data"] = production1data
-		productionDataMap["production2data"] = production2data
-		productionDataMap["production3data"] = production3data
+		data_json=[
+			{"year":"2014","first_industries":6504.0000,"second_industries":6657909.0000,"three_industries":83151073.0000},
+			{"year":"2015", "first_industries": 5279.0000, "second_industries": 7824462.0000, "three_industries": 92194729.0000},
+			{"year":"2016", "first_industries": 7584.0000, "second_industries": 7676087.0000, "three_industries": 103287649.0000},
+			{"year":"2017", "first_industries": 8250.0000, "second_industries": 8315513.0000, "three_industries": 117607690.0000},
+			{"year":"2018", "first_industries": 19551.0000, "second_industries": 9810979.0000, "three_industries": 131523886.0000},
+		]
+		name_list = []
+		production1data=[]
+		production2data = []
+		production3data = []
+		for data in data_json:
+			name_list.append(data.get("year"))
+			production1data.append(data.get("first_industries"))
+			production2data.append(data.get("second_industries"))
+			production3data.append(data.get("three_industries"))
 
-		chart_data.add_series('第一产业', production1data)
-		chart_data.add_series('第二产业', production2data)
-		chart_data.add_series('第三产业', production3data)
+		# 数据等位相加（np.array来实现）
+		add_result_data1 = np.array(production1data) + np.array(production2data) + np.array(production3data)
+		add_result_data2 = np.array(production1data) + np.array(production2data)
+		add_result_data3 = np.array(production1data)
 
 
+		plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
+		plt.title("深圳市产业结构")
+		plt.bar(name_list, add_result_data1, width =0.5, label=u'第三产业', fc='#FFD700')
+		plt.bar(name_list, add_result_data2, width =0.5,label=u'第二产业', fc='#32CD32')
+		plt.bar(name_list, add_result_data3, width =0.5,label=u'第一产业',tick_label=name_list, fc='#1E90FF')
+		# 添加图例
+		plt.ylabel(u'生产总值(万元)')
+		plt.legend(loc="upper right")
+		plt.grid(axis='y',color='gray',linestyle=':',linewidth=1)
+		# # 根据数据显示合适的刻度
+		# add_height =int( (max(add_result_data1) - min(add_result_data3))/10 )
+		# plt.ylim(min(add_result_data3) - add_height ,max(add_result_data1) + add_height)
+
+		pic_path = "3industries.png"
+		plt.savefig(pic_path)
 		# 堆积柱形图：将图表添加到幻灯片 --------------------
 		left, top, width, height = Inches(1), Inches(1.3), Inches(8), Inches(3.5)
-		graphic_frame = slide5.shapes.add_chart(
-			XL_CHART_TYPE.COLUMN_STACKED, left, top, width, height, chart_data
-		)
-		chart = graphic_frame.chart
-		chart.has_legend = True
-		chart.legend.position = XL_LEGEND_POSITION.BOTTOM
-		chart.legend.include_in_layout = False
-		graphic_frame.has_title = True
-		graphic_frame.chart.chart_title.text_frame.text = "深圳市产业结构"
-
-
-		# 定制柱状图颜色
-		colors = {}
-		colors['第一产业'] = 'FFD700'
-		colors['第二产业'] = '32CD32'
-		colors['第三产业'] = '1E90FF'
-		for series in chart.series:
-			if series.name in colors:
-				fill = series.format.fill  # fill the legend as well
-				fill.solid()
-				fill.fore_color.rgb = RGBColor.from_string(colors[series.name])
+		slide5.shapes.add_picture(pic_path, left, top, width, height)
+		plt.close()  # 如果未另指定，则该窗口将是当前窗口。
 
 
 		# 把数据填充到table中
+		productionDataMap = {}
+		productionDataMap["production1data"] = production1data
+		productionDataMap["production2data"] = production2data
+		productionDataMap["production3data"] = production3data
 		graphicFrames = slide5.shapes
 		for graphicFrame in graphicFrames:
 			if type(graphicFrame) != GraphicFrame or not graphicFrame.has_table:
@@ -163,102 +237,9 @@ class diyun_ppt_page_handler():
 		height = Inches(5)
 		slide12.shapes.add_picture(pic_path, left, top, width, height)
 
+
 	@staticmethod
 	def handler_page_14(slide14):
-		# 表格样式 --------------------
-		rows = 11
-		cols = 2
-		top = Inches(0.6)
-		left = Inches(0.3)
-		width = Cm(30)  # Inches(6.0)
-		height = Cm(6)  # Inches(0.8)
-
-		# 添加表格到幻灯片 --------------------
-		table = slide14.shapes.add_table(rows, cols, left, top, width, height).table
-		# 设置单元格宽度
-		table.columns[0].width = Cm(12)  # Inches(2.0)
-		table.columns[1].width = Cm(12)
-
-		cell00 = table.cell(0, 0)
-		cell00.text= "技术经济指标"
-		cell01 = table.cell(0, 1)
-		cell00.merge(cell01)
-		p1 = cell00.text_frame.paragraphs[0]
-		p1.alignment = PP_ALIGN.CENTER
-
-		table.cell(1, 0).text = "地块名称"
-		table.cell(1, 1).text = ""
-		table.cell(2, 0).text = "地块编号"
-		table.cell(2, 1).text = ""
-		table.cell(3, 0).text = "用地性质"
-		table.cell(3, 1).text = ""
-		table.cell(4, 0).text = "出让方式"
-		table.cell(4, 1).text = ""
-		table.cell(5, 0).text = "建设用地面积"
-		table.cell(5, 1).text = ""
-		table.cell(6, 0).text = "规划建筑面积"
-		table.cell(6, 1).text = ""
-		table.cell(7, 0).text = "容积率"
-		table.cell(7, 1).text = ""
-		table.cell(8, 0).text = "建筑密度"
-		table.cell(8, 1).text = ""
-		table.cell(9, 0).text = "绿化率"
-		table.cell(9, 1).text = ""
-		table.cell(10, 0).text = "限高"
-		table.cell(10, 1).text = ""
-
-		for cell in diyun_ppt_page_handler.iter_cells(table):
-			for paragraph in cell.text_frame.paragraphs:
-				for run in paragraph.runs:
-					run.font.size = Pt(12)
-					run.font.color.rgb = RGBColor(0, 0, 0)  # 黑色字体
-
-
-
-
-		# 表格样式 --------------------
-		rows = 4
-		cols = 4
-		top = Inches(5.1)
-		left = Inches(0.3)
-		width = Cm(15)  # Inches(6.0)
-		height = Cm(4)  # Inches(0.8)
-
-		# 添加表格到幻灯片 --------------------
-		table1 = slide14.shapes.add_table(rows, cols, left, top, width, height).table
-		# 设置单元格宽度
-		table1.columns[0].width = Cm(3)  # Inches(2.0)
-		table1.columns[1].width = Cm(3)
-		table1.columns[2].width = Cm(3)
-		table1.columns[3].width = Cm(3)
-
-		cell00 = table1.cell(0, 0)
-		cell00.text = "挂牌信息"
-		cell03 = table1.cell(0, 3)
-		cell00.merge(cell03)
-		p1 = cell00.text_frame.paragraphs[0]
-		p1.alignment = PP_ALIGN.CENTER
-
-		table1.cell(1, 0).text = "截止时间"
-		table1.cell(1, 1).text = ""
-		table1.cell(1, 2).text = "保证金"
-		table1.cell(1, 3).text = ""
-		table1.cell(2, 0).text = "公告时间"
-		table1.cell(2, 1).text = ""
-		table1.cell(2, 2).text = "起始时间"
-		table1.cell(2, 3).text = ""
-		table1.cell(3, 0).text = "起始价"
-		table1.cell(3, 1).text = ""
-		table1.cell(3, 2).text = "推出楼面价"
-		table1.cell(3, 3).text = ""
-		for cell in diyun_ppt_page_handler.iter_cells(table1):
-			for paragraph in cell.text_frame.paragraphs:
-				for run in paragraph.runs:
-					run.font.size = Pt(12)
-					run.font.color.rgb = RGBColor(0, 0, 0)  # 黑色字体
-
-	@staticmethod
-	def handler_page_14_new(slide14):
 		data_dict = {'land_location':'白云区白云新城AB2906009地块',"land_sn":"ab2906009","land_use_details":"城镇住宅用地","type":"挂牌","land_total_area":"67695.0000",
 					 "sale_time":"70","plot_ratio":"大于1并且小于或等于5.5","building_density":"小于或等于30","greening_rate":"大于或等于35","building_limited_height":"小于或等于120",
 					 "open_end_time":"2019-06-14 10:00:00","cash_deposit":"12300.0000","publish_time":"2019-05-16 00:00:00","open_start_time":"2019-06-04 00:00:00","starting_price":"193660.0000","price_increase":"3000.0000",
@@ -620,16 +601,67 @@ class diyun_ppt_page_handler():
 		shapes = slide.shapes
 
 		# 定义图表数据 ---------------------
+		# 堆积柱形图：定义图表数据 ---------------------
 		chart_data = ChartData()
-		chart_data.categories = ['East', 'West', 'Midwest']
-		chart_data.add_series('Series 1', (19.2, 21.4, 16.7))
-		chart_data.add_series('Series 2', (9.2, 2.4, 6.7))
+		chart_data.categories = ['2014', '2015', '2016', '2017', '2018']
+		production1data = (19.2, 21.4, 16.7,13,15)
+		production2data = (9.2, 2.4, 6.7,12,13.5)
+		production3data = (9.2, 2.4, 6.7,14.1,5.2)
+		productionDataMap ={}
+		productionDataMap["production1data"] = production1data
+		productionDataMap["production2data"] = production2data
+		productionDataMap["production3data"] = production3data
 
-		# 将图表添加到幻灯片 --------------------
-		left, top, width, height = Inches(0.2), Inches(1), Inches(4.5), Inches(3.5)
-		slide.shapes.add_chart(
-			XL_CHART_TYPE.COLUMN_CLUSTERED, left, top, width, height, chart_data
+		chart_data.add_series('第一产业', production1data)
+		chart_data.add_series('第二产业', production2data)
+		chart_data.add_series('第三产业', production3data)
+
+
+		# 堆积柱形图：将图表添加到幻灯片 --------------------
+		left, top, width, height = Inches(1), Inches(1.3), Inches(8), Inches(3.5)
+		graphic_frame = slide.shapes.add_chart(
+			XL_CHART_TYPE.COLUMN_STACKED, left, top, width, height, chart_data
 		)
+		chart = graphic_frame.chart
+		chart.has_legend = True
+		chart.legend.position = XL_LEGEND_POSITION.BOTTOM
+		chart.legend.include_in_layout = False
+		graphic_frame.has_title = True
+		graphic_frame.chart.chart_title.text_frame.text = "深圳市产业结构"
+
+
+		# 定制柱状图颜色
+		colors = {}
+		colors['第一产业'] = 'FFD700'
+		colors['第二产业'] = '32CD32'
+		colors['第三产业'] = '1E90FF'
+		for series in chart.series:
+			if series.name in colors:
+				fill = series.format.fill  # fill the legend as well
+				fill.solid()
+				fill.fore_color.rgb = RGBColor.from_string(colors[series.name])
+
+
+		# 把数据填充到table中
+		graphicFrames = slide.shapes
+		for graphicFrame in graphicFrames:
+			if type(graphicFrame) != GraphicFrame or not graphicFrame.has_table:
+				continue
+			for row_index in range(len(graphicFrame.table.rows)):
+				if row_index == 0:
+					continue
+				row_data = productionDataMap.get("production{}data".format(row_index))
+				for column_index in range(len(graphicFrame.table.rows[row_index].cells)):
+					if column_index == 0:
+						continue
+					# 插入数据到 每个单元格
+					graphicFrame.table.rows[row_index].cells[column_index].text = str(row_data[column_index-1])
+
+					# 处理 每个单元格 的样式
+					for paragraph in graphicFrame.table.rows[row_index].cells[column_index].text_frame.paragraphs:
+						for run in paragraph.runs:
+							run.font.size = Pt(12)
+							run.font.color.rgb = RGBColor(0, 0, 0)  # 黑色字体
 
 		# 定义表格数据 ------
 		name_objects = ["object1", "object2", "object3"]

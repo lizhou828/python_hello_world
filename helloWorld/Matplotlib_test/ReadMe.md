@@ -5,6 +5,8 @@
 
 [Python——使用matplotlib绘制柱状图](https://blog.csdn.net/qq_29721419/article/details/71638912)
 
+[matplotlib之堆积柱状图及百分比柱状图](https://blog.csdn.net/weixin_44521703/article/details/101827068)
+
 [Matplotlib：点、实虚线条、柱状图阴影填充](https://blog.csdn.net/weixin_34613450/article/details/81744440)
 
 [Python学习笔记（4）--Matplotlib同时画柱状图与折线图](https://blog.csdn.net/leige_smart/article/details/79583470)

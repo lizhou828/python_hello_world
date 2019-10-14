@@ -31,7 +31,7 @@ page12_seconds_spend = int(time.time() - page12_start_time)
 print("PPT第12页，插入地图的截图完成，耗时：%d 秒" % page12_seconds_spend)
 
 #处理第14页，插入3个table
-diyun_ppt_page_handler.handler_page_14_new(prs.slides[13])
+diyun_ppt_page_handler.handler_page_14(prs.slides[13])
 
 #处理第16页 周边土地
 diyun_ppt_page_handler.handler_page_16(prs.slides[15])
