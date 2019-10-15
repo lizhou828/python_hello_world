@@ -691,6 +691,163 @@ class diyun_ppt_page_handler():
 							run.font.color.rgb = RGBColor(0, 0, 0)  # 黑色字体
 
 	@staticmethod
+	def handler_page_10(slide10):
+		house_sale_json = [
+			{"year": "2013", "cityName": "深圳市", "saleArea":527.1600, "saleAveragePrice":21808.0000 },
+			{"year": "2014", "cityName": "深圳市", "saleArea":474.8100, "saleAveragePrice":23955.0000},
+			{"year": "2015", "cityName": "深圳市", "saleArea":747.8300, "saleAveragePrice":33406.0000},
+			{"year": "2016", "cityName": "深圳市", "saleArea":660.0800, "saleAveragePrice":53455.0000},
+			{"year": "2017", "cityName": "深圳市", "saleArea":520.9700, "saleAveragePrice":54455.0000}
+		]
+		house_dev_json = [
+			{"year": "2013", "cityName": "深圳市", "developmentArea": 4003.4900, "completedArea": 353.5500},
+			{"year": "2014", "cityName": "深圳市", "developmentArea": 4492.1800, "completedArea": 425.3100},
+			{"year": "2015", "cityName": "深圳市", "developmentArea": 4978.4100, "completedArea": 360.2100},
+			{"year": "2016", "cityName": "深圳市", "developmentArea": 5173.9900, "completedArea": 490.0300},
+			{"year": "2017", "cityName": "深圳市", "developmentArea": 5709.3400, "completedArea": 285.0600}
+		]
+		# 数据格式转化
+		dev_year_list = []
+		developmentArea_list = []
+		completedArea_list = []
+		for data in house_dev_json:
+			dev_year_list.append(data.get("year"))
+			developmentArea_list.append(data.get("developmentArea"))
+			completedArea_list.append(data.get("completedArea"))
+
+		sale_year_list = []
+		saleArea_list = []
+		saleAveragePrice_list = []
+		for data in house_sale_json:
+			sale_year_list.append(data.get("year"))
+			saleArea_list.append(data.get("saleArea"))
+			saleAveragePrice_list.append(data.get("saleAveragePrice"))
+
+
+		# 文本框中的文本替换
+		saleAreaPercent = '%.2f' % ( (saleArea_list[-1] - saleArea_list[-2]) / saleArea_list[-2] )
+		saleAreaPercent = float(saleAreaPercent) * 100
+		if saleAreaPercent == 0:
+			saleAreaPercent = "持平"
+		elif saleAreaPercent > 0:
+			saleAreaPercent = "增长" + str(saleAreaPercent) + "%"
+		else:
+			saleAreaPercent = "减少" + str(abs(saleAreaPercent)) + "%"
+		#文本框的内容替换
+		slide10_shapes = slide10.shapes
+		text = slide10.shapes[3].text.format(year=sale_year_list[-1], cityName=house_sale_json[-1].get("cityName"),
+											saleArea=saleArea_list[-1], saleAveragePrice=saleAveragePrice_list[-1],
+											 developmentArea=developmentArea_list[-1],completedArea=completedArea_list[-1],
+											 saleAreaPercent=saleAreaPercent)
+		slide10.shapes[3].text = ""
+		p1 = slide10_shapes[3].text_frame.paragraphs[0]
+		run1 = p1.add_run()
+		run1.text = text
+
+
+
+		# 第一个并列柱状图
+		l = [i for i in range(len(sale_year_list))]  # 7组数据
+		plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
+		fig = plt.figure(figsize=(5.2, 4), frameon=False)
+		subplot1 = fig.add_subplot(111)
+		plt.title("商品住宅销售情况")
+		subplot1.plot(l, saleAveragePrice_list, 'og-', label=u'销售均价')
+		for i, (_x, _y) in enumerate(zip(l, saleAveragePrice_list)):
+			plt.text(_x, _y, saleAveragePrice_list[i], color='black', fontsize=10, )  # 将数值显示在图形上
+		subplot1.legend(loc=1)
+		subplot1.set_ylim([min(saleAveragePrice_list), max(saleAveragePrice_list)])  # 设置y轴取值范围
+		subplot1.set_ylabel(u'销售均价(元/平米)')
+		plt.legend(prop={'family': 'SimHei', 'size': 8})  # 右上角折线图标注，设置中文
+
+		subplot1_twinx = subplot1.twinx()  # this is the important function
+		plt.bar(l, saleArea_list, width=0.2, alpha=0.5, color='#1E90FF', label=u'销售面积')  # 柱形图的数据、颜色、透明度等
+		subplot1_twinx.legend(loc=2)
+		subplot1_twinx.set_ylim([0, max(saleArea_list)])  # 设置y轴取值范围
+		subplot1_twinx.set_ylabel(u'销售面积(万平方米)')
+
+		plt.legend(prop={'family': 'SimHei', 'size': 8}, loc="upper right")  # 左上角折线图标注，
+		plt.xticks(l, sale_year_list)
+		plt.grid(axis='y', color='gray', linestyle=':', linewidth=1)
+		slide10_chart1_path = "slide10_chart1.png"
+		plt.savefig(slide10_chart1_path)
+		left, top, width, height = Inches(0.1), Inches(1.3), Inches(5), Inches(4)
+		slide10.shapes.add_picture(slide10_chart1_path, left, top, width, height)
+		plt.cla()  # clean axis
+		plt.clf()  # clean figure
+		plt.close()  # 如果未另指定，则该窗口将是当前窗口。
+
+
+
+		# 第二个并列柱状图
+		x = list(range(len(dev_year_list)))
+		total_width, n = 0.4, 2
+		width = total_width / n
+
+		fig = plt.figure(figsize=(4.8, 4))  # width, height in inches  ， If not provided, defaults to:rc:`figure.figsize` = ``[6.4, 4.8]``.
+		ax1 = fig.add_subplot(111)
+		plt.title("商品住宅开发情况")
+
+		plt.bar(x, developmentArea_list, width=width, color='#FFD700', label='施工面积', tick_label=dev_year_list)
+		ax1.set_ylabel("单位：万平米")
+		ax1.legend(loc=1)
+		# ax1.set_ylim(0, max(developmentArea_list) + 100)  # 设置y轴取值范围
+		plt.legend(prop={'family': 'SimHei', 'size': 8})  # 右上角折线图标注，设置中文
+
+		for i in range(len(x)):
+			x[i] = x[i] + width
+		plt.bar(x, completedArea_list, width=width, color='#32CD32', label='竣工面积')
+		plt.grid(axis='y', color='gray', linestyle=':', linewidth=1)
+		plt.legend()
+		pic_path = "slide10_chart2.png"
+		plt.savefig(pic_path)
+		left, top, width, height = Inches(5.4), Inches(1.3), Inches(5), Inches(4)
+		slide10.shapes.add_picture(pic_path, left, top, width, height)
+		plt.cla()  # clean axis
+		plt.clf()  # clean figure
+		plt.close()  # 如果未另指定，则该窗口将是当前窗口
+
+		# table中的数据填充
+		table1RowDataMap = {}
+		table1RowDataMap["row0data"] = sale_year_list
+		table1RowDataMap["row1data"] = saleArea_list
+		table1RowDataMap["row2data"] = saleAveragePrice_list
+
+		table2RowDataMap = {}
+		table2RowDataMap["row0data"] = dev_year_list
+		table2RowDataMap["row1data"] = developmentArea_list
+		table2RowDataMap["row2data"] = completedArea_list
+
+		graphicFrames = slide10.shapes
+		frame_index = 0
+		for graphicFrame in graphicFrames:
+			frame_index +=1
+			if type(graphicFrame) != GraphicFrame or not graphicFrame.has_table:
+				continue
+			if frame_index != 5 and frame_index != 6:
+				continue
+			for row_index in range(len(graphicFrame.table.rows)):
+				row_data = []
+				if frame_index == 5:
+					row_data = table1RowDataMap.get("row{}data".format(row_index))
+				if frame_index == 6:
+					row_data = table2RowDataMap.get("row{}data".format(row_index))
+
+				for column_index in range(len(graphicFrame.table.rows[row_index].cells)):
+					if column_index == 0:
+						continue
+					# 插入数据到 每个单元格
+					cell_value = str(row_data[column_index - 1])
+					graphicFrame.table.rows[row_index].cells[column_index].text = cell_value
+
+					# 处理 每个单元格 的样式
+					for paragraph in graphicFrame.table.rows[row_index].cells[column_index].text_frame.paragraphs:
+						for run in paragraph.runs:
+							run.font.size = Pt(12)
+							run.font.color.rgb = RGBColor(0, 0, 0)  # 黑色字体
+
+
+	@staticmethod
 	def handler_page_12(slide12):
 		# url = "file:///" + os.getcwd() + os.sep + "baidu_maps_in_ppt.html"
 		# pic_path = getScreenShotForDiyunLandReport(url)
