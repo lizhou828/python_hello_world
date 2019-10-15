@@ -23,6 +23,10 @@ print("PPT第4页处理完成，耗时：%d 秒" % page4_seconds_spend)
 
 #处理第5页，table中直接插入数据
 diyun_ppt_page_handler.handler_page_5(prs.slides[4])
+diyun_ppt_page_handler.handler_page_6(prs.slides[5])
+diyun_ppt_page_handler.handler_page_7(prs.slides[6])
+diyun_ppt_page_handler.handler_page_8(prs.slides[7])
+diyun_ppt_page_handler.handler_page_9(prs.slides[8])
 
 #处理第12页，插入百度地图的截图
 page12_start_time = time.time()

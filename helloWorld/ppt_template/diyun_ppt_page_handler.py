@@ -138,51 +138,106 @@ class diyun_ppt_page_handler():
 		plt.legend(prop={'family': 'SimHei', 'size': 8})  # 右上角折线图标注，设置中文
 
 		subplot1_twinx = subplot1.twinx()  # this is the important function
-		plt.bar(l, area_gdp_list, width=0.2, alpha=0.4, color='#FFD700', label=u'地区生产总值')  # 柱形图的数据、颜色、透明度等
+		plt.bar(l, area_gdp_list, width=0.2, alpha=0.5, color='#1E90FF', label=u'地区生产总值')  # 柱形图的数据、颜色、透明度等
 		subplot1_twinx.legend(loc=2)
 		subplot1_twinx.set_ylim([0, max(area_gdp_list)])  # 设置y轴取值范围
 		subplot1_twinx.set_ylabel(u'地区生产总值(万元)')
 
 		plt.legend(prop={'family': 'SimHei', 'size': 8}, loc="upper left")  # 左上角折线图标注，
 		plt.xticks(l, year_list)
+		plt.grid(axis='y', color='gray', linestyle=':', linewidth=1)
 		slide4_chart1_path = "slide4_chart1.png"
 		plt.savefig(slide4_chart1_path)
 		left, top, width, height = Inches(0.5), Inches(1), Inches(4), Inches(4)
 		slide4.shapes.add_picture(slide4_chart1_path, left, top, width, height)
+		plt.cla()  # clean axis
+		plt.clf()  # clean figure
 		plt.close()#如果未另指定，则该窗口将是当前窗口。
+
+
+		# 人均生产总值混合图
+		plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
+		fmt = '%.2f%%'
+		yticks = mtick.FormatStrFormatter(fmt)  # 设置百分比形式的坐标轴
+
+		fig = plt.figure(figsize=(6, 6), frameon=False)
+		subplot1 = fig.add_subplot(111)
+
+		subplot1.plot(l, per_gdp_speed_list, 'og-', label=u'增长速度')
+		subplot1.yaxis.set_major_formatter(yticks)
+		for i, (_x, _y) in enumerate(zip(l, per_gdp_speed_list)):
+			plt.text(_x, _y, per_gdp_speed_list[i], color='black', fontsize=10, )  # 将数值显示在图形上
+		subplot1.legend(loc=1)
+		subplot1.set_ylim([min(per_gdp_speed_list), max(per_gdp_speed_list)])  # 设置y轴取值范围
+		subplot1.set_ylabel(u'增长速度(%)')
+		plt.legend(prop={'family': 'SimHei', 'size': 8})  # 右上角折线图标注，设置中文
+
+		subplot1_twinx = subplot1.twinx()  # this is the important function
+		plt.bar(l, per_gdp_list, width=0.2, alpha=0.5, color='#1E90FF', label=u'人均生产总值')  # 柱形图的数据、颜色、透明度等
+		subplot1_twinx.legend(loc=2)
+		subplot1_twinx.set_ylim([0, max(per_gdp_list)])  # 设置y轴取值范围
+		subplot1_twinx.set_ylabel(u'人均生产总值(万元)')
+		plt.grid(axis='y', color='gray', linestyle=':', linewidth=1)
+		plt.legend(prop={'family': 'SimHei', 'size': 8}, loc="upper left")  # 左上角折线图标注，
+		plt.xticks(l, year_list)
+		slide4_chart1_path = "slide4_chart2.png"
+		plt.savefig(slide4_chart1_path)
+		left, top, width, height = Inches(5), Inches(1), Inches(4), Inches(4)
+		slide4.shapes.add_picture(slide4_chart1_path, left, top, width, height)
+		plt.cla()  # clean axis
+		plt.clf()  # clean figure
+		plt.close()  # 如果未另指定，则该窗口将是当前窗口。
+
+
 
 
 	@staticmethod
 	def handler_page_5(slide5):
 		# 堆积柱形图：定义图表数据 ---------------------
 		data_json=[
-			{"year":"2014","first_industries":6504.0000,"second_industries":6657909.0000,"three_industries":83151073.0000},
-			{"year":"2015", "first_industries": 5279.0000, "second_industries": 7824462.0000, "three_industries": 92194729.0000},
-			{"year":"2016", "first_industries": 7584.0000, "second_industries": 7676087.0000, "three_industries": 103287649.0000},
-			{"year":"2017", "first_industries": 8250.0000, "second_industries": 8315513.0000, "three_industries": 117607690.0000},
-			{"year":"2018", "first_industries": 19551.0000, "second_industries": 9810979.0000, "three_industries": 131523886.0000},
+			{"year":"2013","first_industries":6504.0000,"second_industries":6657909.0000,"three_industries":83151073.0000},
+			{"year":"2014", "first_industries": 5279.0000, "second_industries": 7824462.0000, "three_industries": 92194729.0000},
+			{"year":"2015", "first_industries": 7584.0000, "second_industries": 7676087.0000, "three_industries": 103287649.0000},
+			{"year":"2016", "first_industries": 8250.0000, "second_industries": 8315513.0000, "three_industries": 117607690.0000},
+			{"year":"2017", "first_industries": 19551.0000, "second_industries": 9810979.0000, "three_industries": 131523886.0000},
 		]
-		name_list = []
+		year_list = []
 		production1data=[]
 		production2data = []
 		production3data = []
 		for data in data_json:
-			name_list.append(data.get("year"))
+			year_list.append(data.get("year"))
 			production1data.append(data.get("first_industries"))
 			production2data.append(data.get("second_industries"))
 			production3data.append(data.get("three_industries"))
 
+		# 文本框中的文本替换
+		all_production = production1data[-1] + production2data[-1] +production3data[-1]
+		first_percent = '%.2f' % (production1data[-1] / all_production)
+		first_percent = '%.2f' % (float(first_percent) * 100)
+		second_percent = '%.2f' % (production2data[-1] / all_production)
+		second_percent= '%.2f' % (float(second_percent) * 100)
+		third_percent = '%.2f' % (production3data[-1] / all_production)
+		third_percent = '%.2f' % (float(third_percent) * 100)
+		slide6_shapes = slide5.shapes
+		text = slide5.shapes[4].text.format(year=year_list[-1], first=production1data[-1], second=production2data[-1], third=production3data[-1],
+											first_percent=first_percent,second_percent=second_percent,third_percent=third_percent)
+		slide5.shapes[4].text = ""
+		p1 = slide6_shapes[4].text_frame.paragraphs[0]
+		run1 = p1.add_run()
+		run1.text = text
+
+
+		#堆积柱状图
 		# 数据等位相加（np.array来实现）
 		add_result_data1 = np.array(production1data) + np.array(production2data) + np.array(production3data)
 		add_result_data2 = np.array(production1data) + np.array(production2data)
 		add_result_data3 = np.array(production1data)
-
-
 		plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
 		plt.title("深圳市产业结构")
-		plt.bar(name_list, add_result_data1, width =0.5, label=u'第三产业', fc='#FFD700')
-		plt.bar(name_list, add_result_data2, width =0.5,label=u'第二产业', fc='#32CD32')
-		plt.bar(name_list, add_result_data3, width =0.5,label=u'第一产业',tick_label=name_list, fc='#1E90FF')
+		plt.bar(year_list, add_result_data1, width =0.5, label=u'第三产业', fc='#FFD700')
+		plt.bar(year_list, add_result_data2, width =0.5,label=u'第二产业', fc='#32CD32')
+		plt.bar(year_list, add_result_data3, width =0.5,label=u'第一产业',tick_label=year_list, fc='#1E90FF')
 		# 添加图例
 		plt.ylabel(u'生产总值(万元)')
 		plt.legend(loc="upper right")
@@ -194,13 +249,16 @@ class diyun_ppt_page_handler():
 		pic_path = "3industries.png"
 		plt.savefig(pic_path)
 		# 堆积柱形图：将图表添加到幻灯片 --------------------
-		left, top, width, height = Inches(1), Inches(1.3), Inches(8), Inches(3.5)
+		left, top, width, height = Inches(1), Inches(1.4), Inches(8), Inches(3.5)
 		slide5.shapes.add_picture(pic_path, left, top, width, height)
-		plt.close()  # 如果未另指定，则该窗口将是当前窗口。
+		plt.cla()  # clean axis
+		plt.clf()  # clean figure
+		plt.close()  # 如果未另指定，则该窗口将是当前窗口
 
 
 		# 把数据填充到table中
 		productionDataMap = {}
+		productionDataMap["production0data"] = year_list
 		productionDataMap["production1data"] = production1data
 		productionDataMap["production2data"] = production2data
 		productionDataMap["production3data"] = production3data
@@ -209,14 +267,422 @@ class diyun_ppt_page_handler():
 			if type(graphicFrame) != GraphicFrame or not graphicFrame.has_table:
 				continue
 			for row_index in range(len(graphicFrame.table.rows)):
-				if row_index == 0:
-					continue
 				row_data = productionDataMap.get("production{}data".format(row_index))
 				for column_index in range(len(graphicFrame.table.rows[row_index].cells)):
 					if column_index == 0:
 						continue
 					# 插入数据到 每个单元格
 					graphicFrame.table.rows[row_index].cells[column_index].text = str(row_data[column_index-1])
+
+					# 处理 每个单元格 的样式
+					for paragraph in graphicFrame.table.rows[row_index].cells[column_index].text_frame.paragraphs:
+						for run in paragraph.runs:
+							run.font.size = Pt(12)
+							run.font.color.rgb = RGBColor(0, 0, 0)  # 黑色字体
+
+
+	@staticmethod
+	def handler_page_6(slide6):
+		data_json = [
+			{"year": "2013", "city_name":"深圳市","permanentTotal": 1062.890, "registerTotal": 310.470, "density": 5323},
+			{"year": "2014", "city_name":"深圳市","permanentTotal": 1077.890, "registerTotal": 332.210, "density": 5398},
+			{"year": "2015", "city_name":"深圳市","permanentTotal": 1137.870, "registerTotal": 332.210, "density": 5697},
+			{"year": "2016", "city_name":"深圳市","permanentTotal": 1190.840, "registerTotal": 384.520, "density": 5962},
+			{"year": "2017", "city_name":"深圳市","permanentTotal": 1252.830, "registerTotal": 434.720, "density": 6234},
+		]
+		# 文本框中的文本替换
+		slide6_shapes = slide6.shapes
+		text = slide6.shapes[4].text.format(year=2018, city_name='广东省深圳市', register_total=434.720, permanent_total=1252.830,density=6234)
+		slide6.shapes[4].text = ""
+		p1 = slide6_shapes[4].text_frame.paragraphs[0]
+		run1 = p1.add_run()
+		run1.text = text
+
+		# 数据格式转化
+		year_list = []
+		permanentTotal_list = []
+		registerTotal_list = []
+		density_list = []
+		for data in data_json:
+			year_list.append(data.get("year"))
+			permanentTotal_list.append(data.get("permanentTotal"))
+			registerTotal_list.append(data.get("registerTotal"))
+			density_list.append(data.get("density"))
+
+
+		# 并列柱状图与折线图
+		l = [i for i in range(len(year_list))]  # n组数据
+		plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
+		fig = plt.figure(figsize=(6, 4))  # width, height in inches  ， If not provided, defaults to:rc:`figure.figsize` = ``[6.4, 4.8]``.
+		ax1 = fig.add_subplot(111)
+		plt.title("人口")
+		ax1.plot(l, density_list, 'og-', label=u'人口密度')
+		for i, (_x, _y) in enumerate(zip(l, density_list)):
+			plt.text(_x, _y, density_list[i], color='black', fontsize=10, )  # 将数值显示在图形上
+		ax1.legend(loc=1)
+		ax1.set_ylim([min(density_list)-100, max(density_list)+100])  # 设置y轴取值范围
+		ax1.set_ylabel(u'人口密度(人/平方千米)')
+		plt.legend(prop={'family': 'SimHei', 'size': 8})  # 右上角折线图标注，设置中文
+
+		# 柱状图，设置两组数与总宽度
+		total_width, n = 0.8, 2
+		width = total_width / n  # 每条柱状图的宽度
+
+		ax2 = ax1.twinx()  # this is the important function
+		plt.bar(l, permanentTotal_list, alpha=0.4, width=width, color='#FFD700', label=u'常住人口')  # 柱形图的数据、颜色、透明度等
+		ax2.legend(loc=2)
+		# ax2.set_ylim([min(permanentTotal_list)-100, max(permanentTotal_list)+100])  # 设置y轴取值范围
+		ax2.set_ylabel(u'人口(万人)')
+		for i in range(len(l)):
+			l[i] = l[i] + width
+		plt.bar(l, registerTotal_list, width=width, alpha=0.4, color='#1E90FF', label=u'户籍人口')
+		plt.legend(prop={'family': 'SimHei', 'size': 8}, loc="upper left")  # 左上角折线图标注，
+		plt.xticks(l, year_list)
+		plt.grid(axis='y', color='gray', linestyle=':', linewidth=1)
+		pic_path = "slide6_chart1.png"
+		plt.savefig(pic_path)
+		left, top, width, height = Inches(1.5), Inches(1), Inches(7), Inches(4)
+		slide6.shapes.add_picture(pic_path, left, top, width, height)
+		plt.cla()  # clean axis
+		plt.clf()  # clean figure
+		plt.close()  # 如果未另指定，则该窗口将是当前窗口
+
+		# table中的数据填充
+		# 把数据填充到table中
+		rowDataMap = {}
+		rowDataMap["row0data"] = year_list
+		rowDataMap["row1data"] = permanentTotal_list
+		rowDataMap["row2data"] = registerTotal_list
+		rowDataMap["row3data"] = density_list
+		graphicFrames = slide6.shapes
+		for graphicFrame in graphicFrames:
+			if type(graphicFrame) != GraphicFrame or not graphicFrame.has_table:
+				continue
+			for row_index in range(len(graphicFrame.table.rows)):
+				row_data = rowDataMap.get("row{}data".format(row_index))
+				for column_index in range(len(graphicFrame.table.rows[row_index].cells)):
+					if column_index == 0:
+						continue
+					# 插入数据到 每个单元格
+					graphicFrame.table.rows[row_index].cells[column_index].text = str(row_data[column_index - 1])
+
+					# 处理 每个单元格 的样式
+					for paragraph in graphicFrame.table.rows[row_index].cells[column_index].text_frame.paragraphs:
+						for run in paragraph.runs:
+							run.font.size = Pt(12)
+							run.font.color.rgb = RGBColor(0, 0, 0)  # 黑色字体
+
+	@staticmethod
+	def handler_page_7(slide7):
+		data_json = [
+			{"year": "2013", "cityName": "深圳市", "disposableIncome": 44653.1000, "expenditure": 28812.4400},
+			{"year": "2014", "cityName": "深圳市", "disposableIncome": 40948.0000, "expenditure": 28852.7100},
+			{"year": "2015", "cityName": "深圳市", "disposableIncome": 44633.3000, "expenditure": 32359.2000},
+			{"year": "2016", "cityName": "深圳市", "disposableIncome": 48695.0000, "expenditure": 36840.6100},
+			{"year": "2017", "cityName": "深圳市", "disposableIncome": 52938.0000, "expenditure": 38320.1200},
+		]
+		# 数据格式转化
+		year_list = []
+		disposableIncome_list = []
+		expenditure_list = []
+		for data in data_json:
+			year_list.append(data.get("year"))
+			disposableIncome_list.append(data.get("disposableIncome"))
+			expenditure_list.append(data.get("expenditure"))
+
+		# 文本框内容替换
+		incomePercent = '%.2f' % ((disposableIncome_list[-1] -  disposableIncome_list[-2]) / disposableIncome_list[-2])
+		incomePercent = float(incomePercent) * 100
+		if incomePercent == 0:
+			incomePercent = "持平"
+		elif incomePercent > 0:
+			incomePercent = "增长" + str(incomePercent) + "%"
+		else:
+			incomePercent = "减少" + str(abs(incomePercent)) +"%"
+		percent = '%.2f' % ( expenditure_list[-1] / disposableIncome_list[-1] )
+		percent = float(percent) * 100
+		slide7_shapes = slide7.shapes
+		text = slide7.shapes[4].text.format(year=data_json[-1].get("year"), cityName=data_json[-1].get("cityName"),
+											income = disposableIncome_list[-1],incomePercent=incomePercent,
+											expenditure=expenditure_list[-1],percent = percent)
+		slide7.shapes[4].text = ""
+		p1 = slide7_shapes[4].text_frame.paragraphs[0]
+		run1 = p1.add_run()
+		run1.text = text
+
+
+		# 并列柱状图
+		x = list(range(len(year_list)))
+		total_width, n = 0.8, 2
+		width = total_width / n
+
+		fig = plt.figure(figsize=(6, 4))  # width, height in inches  ， If not provided, defaults to:rc:`figure.figsize` = ``[6.4, 4.8]``.
+		ax1 = fig.add_subplot(111)
+		plt.title("居民收入")
+
+		plt.bar(x, disposableIncome_list,width=width, color='#FFD700', label='人均可支配收入', tick_label=year_list)
+		ax1.set_ylabel("单位：元")
+		ax1.legend(loc=1)
+		ax1.set_ylim(0, max(disposableIncome_list) + 100)  # 设置y轴取值范围
+		plt.legend(prop={'family': 'SimHei', 'size': 8})  # 右上角折线图标注，设置中文
+
+		for i in range(len(x)):
+			x[i] = x[i] + width
+		plt.bar(x, expenditure_list, width=width, color='#32CD32', label='人均消费性支出')
+		plt.grid(axis='y', color='gray', linestyle=':', linewidth=1)
+		plt.legend()
+		pic_path = "slide7_chart1.png"
+		plt.savefig(pic_path)
+		left, top, width, height = Inches(1.5), Inches(1.3), Inches(6), Inches(3.8)
+		slide7.shapes.add_picture(pic_path, left, top, width, height)
+		plt.cla()  # clean axis
+		plt.clf()  # clean figure
+		plt.close()  # 如果未另指定，则该窗口将是当前窗口
+
+
+		# table中的数据填充
+		rowDataMap = {}
+		rowDataMap["row0data"] = year_list
+		rowDataMap["row1data"] = disposableIncome_list
+		rowDataMap["row2data"] = expenditure_list
+		graphicFrames = slide7.shapes
+		for graphicFrame in graphicFrames:
+			if type(graphicFrame) != GraphicFrame or not graphicFrame.has_table:
+				continue
+			for row_index in range(len(graphicFrame.table.rows)):
+				row_data = rowDataMap.get("row{}data".format(row_index))
+				for column_index in range(len(graphicFrame.table.rows[row_index].cells)):
+					if column_index == 0:
+						continue
+					# 插入数据到 每个单元格
+					cell_value = str(row_data[column_index - 1])
+					graphicFrame.table.rows[row_index].cells[column_index].text = cell_value
+
+					# 处理 每个单元格 的样式
+					for paragraph in graphicFrame.table.rows[row_index].cells[column_index].text_frame.paragraphs:
+						for run in paragraph.runs:
+							run.font.size = Pt(12)
+							run.font.color.rgb = RGBColor(0, 0, 0)  # 黑色字体
+
+	@staticmethod
+	def handler_page_8(slide8):
+		data_json = [
+			{"year": "2013", "cityName":"深圳市","fixedAssets": 24901970.000, "realEstate": 876.900},
+			{"year": "2014", "cityName":"深圳市","fixedAssets": 27174226.000, "realEstate": 1069.490},
+			{"year": "2015", "cityName":"深圳市","fixedAssets": 32983076.000, "realEstate": 1331.030},
+			{"year": "2016", "cityName":"深圳市","fixedAssets": 40781638.000, "realEstate": 1756.520},
+			{"year": "2017", "cityName":"深圳市","fixedAssets": 51473152.000, "realEstate": 2135.860},
+		]
+
+		# 数据格式转化
+		year_list = []
+		fixedAssets_list = []
+		realEstate_list = []
+		percent_list = []
+		for data in data_json:
+			year_list.append(data.get("year"))
+			fixedAssets = data.get("fixedAssets") /10000
+			fixedAssets_list.append(fixedAssets)
+			realEstate_list.append(data.get("realEstate"))
+			percent ='%.2f' %(data.get("realEstate") / fixedAssets) #保留2位小数
+			percent_list.append(float(percent) * 100)
+
+		# 文本框中的文本替换
+		yearPercent = '%.2f' % ((fixedAssets_list[-1] -  fixedAssets_list[-2]) / fixedAssets_list[-2])
+		yearPercent = float(yearPercent) * 100
+		if yearPercent == 0:
+			yearPercent = "持平"
+		elif yearPercent > 0:
+			yearPercent = "增长" + str(yearPercent) + "%"
+		else:
+			yearPercent = "减少" + str(abs(yearPercent)) +"%"
+
+		slide6_shapes = slide8.shapes
+		text = slide8.shapes[4].text.format(year=data_json[-1].get("year"), cityName=data_json[-1].get("cityName"),
+											fixedAssets=fixedAssets_list[-1], realEstate=realEstate_list[-1],
+											realEstatePercent=percent_list[-1],yearPercent=yearPercent)
+		slide8.shapes[4].text = ""
+		p1 = slide6_shapes[4].text_frame.paragraphs[0]
+		run1 = p1.add_run()
+		run1.text = text
+
+
+		# 并列柱状图与折线图
+		l = [i for i in range(len(year_list))]  # n组数据
+		plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
+		fig = plt.figure(figsize=(6, 4))  # width, height in inches  ， If not provided, defaults to:rc:`figure.figsize` = ``[6.4, 4.8]``.
+		ax1 = fig.add_subplot(111)
+		plt.title("资产投资")
+		ax1.plot(l, percent_list, 'og-', label=u'房投/固投')
+		fmt = '%.2f%%'
+		yticks = mtick.FormatStrFormatter(fmt)  # 设置百分比形式的坐标轴
+		ax1.yaxis.set_major_formatter(yticks)
+		for i, (_x, _y) in enumerate(zip(l, percent_list)):
+			plt.text(_x, _y, str(percent_list[i])+"%", color='black', fontsize=10, )  # 将数值显示在图形上
+		ax1.legend(loc=1)
+		ax1.set_ylim(0,max(percent_list)+10)  # 设置y轴取值范围
+		ax1.set_ylabel(u'房投/固投(百分比)')
+		plt.legend(prop={'family': 'SimHei', 'size': 8})  # 右上角折线图标注，设置中文
+
+		# 柱状图，设置两组数与总宽度
+		total_width, n = 0.8, 2
+		width = total_width / n  # 每条柱状图的宽度
+
+		ax2 = ax1.twinx()  # this is the important function
+		plt.bar(l, fixedAssets_list, alpha=0.4, width=width, color='#FFD700', label=u'固定资产投资')  # 柱形图的数据、颜色、透明度等
+		ax2.legend(loc=2)
+		# ax2.set_ylim([min(permanentTotal_list)-100, max(permanentTotal_list)+100])  # 设置y轴取值范围
+		ax2.set_ylabel(u'投资(亿元)')
+		for i in range(len(l)):
+			l[i] = l[i] + width
+		plt.bar(l, realEstate_list, width=width, alpha=0.4, color='#1E90FF', label=u'房地产投资')
+		plt.legend(prop={'family': 'SimHei', 'size': 8}, loc="upper left")  # 左上角折线图标注，
+		plt.xticks(l, year_list)
+		plt.grid(axis='y', color='gray', linestyle=':', linewidth=1)
+		pic_path = "slide8_chart1.png"
+		plt.savefig(pic_path)
+		left, top, width, height = Inches(1.5), Inches(1.2), Inches(6), Inches(3.8)
+		slide8.shapes.add_picture(pic_path, left, top, width, height)
+		plt.cla()  # clean axis
+		plt.clf()  # clean figure
+		plt.close()  # 如果未另指定，则该窗口将是当前窗口
+
+		# table中的数据填充
+		rowDataMap = {}
+		rowDataMap["row0data"] = year_list
+		rowDataMap["row1data"] = fixedAssets_list
+		rowDataMap["row2data"] = realEstate_list
+		rowDataMap["row3data"] = percent_list
+		graphicFrames = slide8.shapes
+		for graphicFrame in graphicFrames:
+			if type(graphicFrame) != GraphicFrame or not graphicFrame.has_table:
+				continue
+			for row_index in range(len(graphicFrame.table.rows)):
+				row_data = rowDataMap.get("row{}data".format(row_index))
+				for column_index in range(len(graphicFrame.table.rows[row_index].cells)):
+					if column_index == 0:
+						continue
+					# 插入数据到 每个单元格
+					if row_index == 3 :
+						cell_value = str(row_data[column_index - 1]) + "%"
+					else:
+						cell_value = str(row_data[column_index - 1])
+					graphicFrame.table.rows[row_index].cells[column_index].text = cell_value
+
+					# 处理 每个单元格 的样式
+					for paragraph in graphicFrame.table.rows[row_index].cells[column_index].text_frame.paragraphs:
+						for run in paragraph.runs:
+							run.font.size = Pt(12)
+							run.font.color.rgb = RGBColor(0, 0, 0)  # 黑色字体
+
+	@staticmethod
+	def handler_page_9(slide9):
+		data_json = [
+			{"year": "2014", "cityName": "深圳市", "supplyArea": 1107985.0000, "dealArea": 167985.0000 ,"dealFloorPrice":5500.0000},
+			{"year": "2015", "cityName": "深圳市", "supplyArea": 1108985.0000, "dealArea": 165985.0000,"dealFloorPrice":15000.0000},
+			{"year": "2016", "cityName": "深圳市", "supplyArea": 142985.0000, "dealArea": 15985.0000,"dealFloorPrice":55000.0000},
+			{"year": "2017", "cityName": "深圳市", "supplyArea": 152985.0000, "dealArea": 19985.0000,"dealFloorPrice":56000.0000},
+			{"year": "2018", "cityName": "深圳市", "supplyArea": 152585.0000, "dealArea": 19585.0000,"dealFloorPrice":57000.0000},
+		]
+
+		# 数据格式转化
+		year_list = []
+		supplyArea_list = []
+		dealArea_list = []
+		dealFloorPrice_list = []
+		for data in data_json:
+			year_list.append(data.get("year"))
+			supplyArea_list.append(data.get("supplyArea"))
+			dealArea_list.append(data.get("dealArea"))
+			dealFloorPrice_list.append(data.get("dealFloorPrice"))
+
+
+		# 文本框中的文本替换
+		supplyPercent = '%.2f' % ((supplyArea_list[-1] - supplyArea_list[-2]) / supplyArea_list[-2])
+		supplyPercent = float(supplyPercent) * 100
+		if supplyPercent == 0:
+			supplyPercent = "持平"
+		elif supplyPercent > 0:
+			supplyPercent = "增长" + str(supplyPercent) + "%"
+		else:
+			supplyPercent = "减少" + str(abs(supplyPercent)) +"%"
+
+		dealAreaPercent = '%.2f' % ((dealArea_list[-1] - dealArea_list[-2]) / dealArea_list[-2])
+		dealAreaPercent = float(dealAreaPercent) * 100
+		if dealAreaPercent == 0:
+			dealAreaPercent = "持平"
+		elif dealAreaPercent > 0:
+			dealAreaPercent = "增长" + str(dealAreaPercent) + "%"
+		else:
+			dealAreaPercent = "减少" + str(abs(dealAreaPercent)) + "%"
+
+		slide6_shapes = slide9.shapes
+		text = slide9.shapes[4].text.format(year=data_json[-1].get("year"), cityName=data_json[-1].get("cityName"),
+											supplyArea=supplyArea_list[-1], dealArea=dealArea_list[-1],dealFloorPrice=dealFloorPrice_list[-1],
+											supplyPercent=supplyPercent,dealAreaPercent=dealAreaPercent)
+		slide9.shapes[4].text = ""
+		p1 = slide6_shapes[4].text_frame.paragraphs[0]
+		run1 = p1.add_run()
+		run1.text = text
+
+
+
+
+		# 并列柱状图与折线图
+		l = [i for i in range(len(year_list))]  # n组数据
+		plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
+		fig = plt.figure(figsize=(8, 3.5))  # width, height in inches  ， If not provided, defaults to:rc:`figure.figsize` = ``[6.4, 4.8]``.
+		ax1 = fig.add_subplot(111)
+		plt.title("土地市场成交走势")
+		ax1.plot(l, dealFloorPrice_list, 'og-', label=u'成交楼面价')
+		for i, (_x, _y) in enumerate(zip(l, dealFloorPrice_list)):
+			plt.text(_x, _y, dealFloorPrice_list[i], color='black', fontsize=10, )  # 将数值显示在图形上
+		ax1.legend(loc=1)
+		ax1.set_ylim(0, max(dealFloorPrice_list) )  # 设置y轴取值范围
+		ax1.set_ylabel(u'成交楼面价(元/平米)')
+		plt.legend(prop={'family': 'SimHei', 'size': 8})  # 右上角折线图标注，设置中文
+
+		# 柱状图，设置两组数与总宽度
+		total_width, n = 0.8, 2
+		width = total_width / n  # 每条柱状图的宽度
+
+		ax2 = ax1.twinx()  # this is the important function
+		plt.bar(l, supplyArea_list, alpha=0.4, width=width, color='#FFD700', label=u'供应面积')  # 柱形图的数据、颜色、透明度等
+		ax2.legend(loc=2)
+		# ax2.set_ylim( min(supplyArea_list), max(supplyArea_list) + 1000)  # 设置y轴取值范围
+		ax2.set_ylabel(u'面积(万平方米)')
+		for i in range(len(l)):
+			l[i] = l[i] + width
+		plt.bar(l, dealArea_list, width=width, alpha=0.4, color='#1E90FF', label=u'成交面积')
+		plt.legend(prop={'family': 'SimHei', 'size': 8}, loc="upper left")  # 左上角折线图标注，
+		plt.xticks(l, year_list)
+		plt.grid(axis='y', color='gray', linestyle=':', linewidth=1)
+		pic_path = "slide9_chart1.png"
+		plt.savefig(pic_path)
+		left, top, width, height = Inches(1.5), Inches(1.2), Inches(6), Inches(3.8)
+		slide9.shapes.add_picture(pic_path, left, top, width, height)
+		plt.cla()  # clean axis
+		plt.clf()  # clean figure
+		plt.close()  # 如果未另指定，则该窗口将是当前窗口
+
+		# table中的数据填充
+		rowDataMap = {}
+		rowDataMap["row0data"] = year_list
+		rowDataMap["row1data"] = supplyArea_list
+		rowDataMap["row2data"] = dealArea_list
+		rowDataMap["row3data"] = dealFloorPrice_list
+		graphicFrames = slide9.shapes
+		for graphicFrame in graphicFrames:
+			if type(graphicFrame) != GraphicFrame or not graphicFrame.has_table:
+				continue
+			for row_index in range(len(graphicFrame.table.rows)):
+				row_data = rowDataMap.get("row{}data".format(row_index))
+				for column_index in range(len(graphicFrame.table.rows[row_index].cells)):
+					if column_index == 0:
+						continue
+					# 插入数据到 每个单元格
+					cell_value = str(row_data[column_index - 1])
+					graphicFrame.table.rows[row_index].cells[column_index].text = cell_value
 
 					# 处理 每个单元格 的样式
 					for paragraph in graphicFrame.table.rows[row_index].cells[column_index].text_frame.paragraphs:
