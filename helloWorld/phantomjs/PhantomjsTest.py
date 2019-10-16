@@ -3,6 +3,8 @@
 
 # 安装Selenium
 # pip3 install selenium
+import os
+import time
 
 from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
@@ -13,20 +15,26 @@ dcap["phantomjs.page.settings.userAgent"] = ("Mozilla/5.0 (Windows NT 6.1) Apple
 # 设置user-agent请求头
 dcap["phantomjs.page.settings.loadImages"] = False  # 禁止加载图片
 
-driver = webdriver.PhantomJS(desired_capabilities=dcap)
+driver = webdriver.PhantomJS(desired_capabilities=dcap,executable_path = r'D:\ProgramFiles\phantomjs-2.1.1-windows\bin\phantomjs.exe')
 driver.set_page_load_timeout(40)  # 设置页面最长加载时间为40s
 
-driver.get('https://gaokao.chsi.com.cn/sch/search--ss-on,searchType-1,option-qg,start-0.dhtml')   #加载网页
-data = driver.page_source   #获取网页文本
-# driver.save_screenshot('1.png')   #截图保存
-print(data)
-driver.quit()
+# driver.get('https://gaokao.chsi.com.cn/sch/search--ss-on,searchType-1,option-qg,start-0.dhtml')   #加载网页
+# data = driver.page_source   #获取网页文本
+# # driver.save_screenshot('1.png')   #截图保存
+# print(data)
 
 
-driver1 = webdriver.PhantomJS( executable_path = r'D:\ProgramFiles\phantomjs-2.1.1-windows\bin\phantomjs.exe')
-driver1.get("http://www.csdn.net")
-data = driver1.title
-driver1.save_screenshot('csdn.png')
+start = time.time()
+url = "http://www.csdn.net"
+# url = "file:///"+os.getcwd() + os.sep + "baidu_maps_in_ppt.html"
+driver.get(url)
+time.sleep(5)
+data = driver.title
+driver.save_screenshot('csdn.png')
+end = time.time()
+print("对网页" + url + "进行网页截图，耗时" + "%.2f" % (end-start)+ "秒")
+
+
 # ---------------------
 # 版权声明：本文为CSDN博主「Blackrosetian」的原创文章，遵循CC 4.0 by-sa版权协议，转载请附上原文出处链接及本声明。
 # 原文链接：https://blog.csdn.net/Blackrosetian/article/details/75126904

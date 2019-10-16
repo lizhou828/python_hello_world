@@ -33,15 +33,16 @@
     var circle = new BMap.Circle(point,5000,{fillColor:"blue", strokeWeight: 1 ,fillOpacity: 0.1, strokeOpacity: 0.1,enableEditing:true});
     map.addOverlay(circle);
 
-    // 自定义标注图标
-    var myIcon = new BMap.Icon("maker_icon.png", new BMap.Size(30, 40));
 
     // 编写自定义函数,创建标注
     function addMarker(point,_index) {
+        // 自定义标注图标
+        var myIcon = new BMap.Icon(_index+".png", new BMap.Size(30, 40));
+
         var marker = new BMap.Marker(point,{icon:myIcon});
         map.addOverlay(marker);
-        var label = new BMap.Label(_index, {offset: new BMap.Size(8, 8)});
-        marker.setLabel(label);
+        // var label = new BMap.Label(_index, {offset: new BMap.Size(8, 8)});
+        // marker.setLabel(label);
     }
 
     // 随机向地图添加10个标注
@@ -50,7 +51,7 @@
     var ne = bounds.getNorthEast();
     var lngSpan = Math.abs(sw.lng - ne.lng);
     var latSpan = Math.abs(ne.lat - sw.lat);
-    for (var i = 1; i < 12; i++) {
+    for (var i = 1; i <= 10; i++) {
         var point = new BMap.Point(sw.lng + lngSpan * (Math.random() * 0.7), ne.lat - latSpan * (Math.random() * 0.7));
         addMarker(point,i);
     }
