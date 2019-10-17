@@ -4,6 +4,22 @@
 # 第三方库安装
     pip3 install python-pptx
     
+# 技术方案、系统、架构等调研
+## 技术方案有：
+    java的实现有poi库
+    python的实现有python-pptx库
+## 系统方面：
+    开发环境Windows10
+    生产环境CentOS7
+## 第三方包的适用条件与局限性等：
+    poi库，代码繁琐，在pptx中生成并插入图表后，再打开时提示“有损坏的内容，并开始尝试修复”，点击修复后，部分图表丢失
+    python-pptx库 ，需要依赖微软的office组件，在Linux系统中并没有这些组件
+    经了解后，Linux系统中的，可以安装 openoffice、wps等软件，但跟微软的office组件有一定的兼容性问题
+## 解决方案    
+    1、用依赖微软组件的方式，生产环境需要部署windows机，并安装office模块
+    2、不用依赖微软组件的方式，需要先采坑，生成的pptx文件尽量与微软的office兼容，尽量没有问题
+            
+    
 # 参考文档
 
 [python-pptx官方文档](https://python-pptx.readthedocs.io/en/stable/user/quickstart.html)
