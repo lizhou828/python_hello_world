@@ -1,4 +1,5 @@
 import copy
+import json
 
 print("copy")
 
@@ -50,4 +51,14 @@ for key,value in dd.items():
 print(dd_kv)
 dd_list =list(dd_kv)
 print(dd_list )
+
+
+# json字符串转dict
+json_response = '{"buildingDensity": "≤35.0","buildingTotalArea": 30830.0000,"cityId": 230}'
+dict_json = eval(json_response)
+print(dict_json)
+# 但是有null值的字符串时，需要用json.loads来处理
+json_response = '{"administrativeArea": null,"buildingDensity": "≤35.0","buildingTotalArea": 30830.0000,"cityId": 230}'
+dict_json = json.loads(json_response)
+print(dict_json)
 
