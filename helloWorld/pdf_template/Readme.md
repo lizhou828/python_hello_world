@@ -6,6 +6,13 @@
 reportlab
 [pdf 模板：可以使用 pyPdf 和 reportlab 包。](http://stackoverflow.com/questions/1180115/add-text-to-existing-pdf-using-python)
 [Python3用ReportLab生成pdf报表,不学何来惊喜?](https://www.jianshu.com/p/a09186fc3131)
+[reportlab 中文问题[已解决]](https://www.jianshu.com/p/41284e4e25f5)
+[python之reportlab生成PDF文件](https://www.cnblogs.com/zoe-yan/p/11356410.html)
+[python reportlab 生成table （比较全面，一篇足够）](https://blog.csdn.net/weixin_40161254/article/details/84827805)
+[python reportlab 生成pdf (二) SimpleDocTemplate](https://blog.csdn.net/kingken212/article/details/47209791/)
+[python+reportlab实战：生成一个带表格图片的PDF](https://blog.csdn.net/jtscript/article/details/45217697)
+[reportlab 页脚和页眉的使用](https://blog.csdn.net/liyadian/article/details/81253117)
+[pyhton之Reportlab模块](https://www.cnblogs.com/hujq1029/p/7767980.html)
 
 
 html Jinja WeasyPrint

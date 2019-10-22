@@ -13,7 +13,7 @@ def create_pdf(input, output="reportlab_test2.pdf"):
     date = now.strftime("%h %d %Y %H:%M:%S")
     c = canvas.Canvas(output)
     textobject = c.beginText()
-    textobject.setTextOrigin(inch, 11*inch)
+    textobject.setTextOrigin(inch, 1*inch) # 在页面上显示的位置
     textobject.textLines('''Disk Capcity Report: %s''' %date)
     for line in input:
         textobject.textLine(line.strip())
