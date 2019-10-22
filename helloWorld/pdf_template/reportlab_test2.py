@@ -8,7 +8,7 @@ def disk_report():
 #   print p.stdout.readlines()
     return p.stdout.readlines()
 
-def create_pdf(input, output="disk_report.pdf"):
+def create_pdf(input, output="reportlab_test2.pdf"):
     now = datetime.datetime.today()
     date = now.strftime("%h %d %Y %H:%M:%S")
     c = canvas.Canvas(output)

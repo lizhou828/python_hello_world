@@ -3,6 +3,7 @@
 """
 @Function:  Python Flask Web开发（3） https://blog.csdn.net/langkew/article/details/51594880 Web端 VR全景图的各种实现
            【Python】【Flask】Flask 后台发送html页面多种方法   https://www.cnblogs.com/mqxs/p/7904960.html
+           flask中使用模板引擎返回网页  https://blog.csdn.net/longting_/article/details/80629153
 @File    :          controller.py    
 @Contact :          lizhou@glorypty.com
 @License :          (C)Copyright 2019-2020

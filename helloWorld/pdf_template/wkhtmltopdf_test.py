@@ -25,5 +25,5 @@ config = pdfkit.configuration(wkhtmltopdf=install_path)
 url = "'https://www.cnblogs.com/xingzhui/p/7887212.html"
 # url = "https://www.jianshu.com/p/a95cfad04206"
 # url ="https://blog.csdn.net/qq_42631707/article/details/99735884"
-out_put_file_path = "out.pdf"
+out_put_file_path = "wkhtmltopdf_test.pdf"
 pdfkit.from_url(url,out_put_file_path,options=options,configuration=config)
