@@ -13,7 +13,7 @@ reportlab
 [python+reportlab实战：生成一个带表格图片的PDF](https://blog.csdn.net/jtscript/article/details/45217697)
 [reportlab 页脚和页眉的使用](https://blog.csdn.net/liyadian/article/details/81253117)
 [pyhton之Reportlab模块](https://www.cnblogs.com/hujq1029/p/7767980.html)
-
+[python之reportlab生成PDF测试报告](https://www.cnblogs.com/zoe-yan/p/11356410.html)
 
 html Jinja WeasyPrint
 [使用Pandas、Jinja和WeasyPrint制作pdf报告](https://blog.csdn.net/sinat_38682860/article/details/88725246)

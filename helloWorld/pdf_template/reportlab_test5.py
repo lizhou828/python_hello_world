@@ -2,12 +2,13 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 
 from reportlab.lib import colors
+from reportlab.lib.enums import TA_CENTER, TA_LEFT
 from reportlab.lib.pagesizes import letter, landscape
 from reportlab.lib.colors import HexColor
-from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.units import inch, mm, cm
 
-from reportlab.platypus import Paragraph, SimpleDocTemplate, PageBreak,Image, Table, TableStyle
+from reportlab.platypus import Paragraph, SimpleDocTemplate, PageBreak,Image, Table, TableStyle,Spacer
+from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 
 from reportlab.graphics.charts.piecharts import Pie
 from reportlab.graphics.shapes import Drawing, Rect
@@ -149,13 +150,29 @@ if __name__ == "__main__":
 	elements = []
 	pdf = SimpleDocTemplate('reportlab_test5.pdf', pagesize=landscape(letter)) #设置页面横向
 
+	title_style = ParagraphStyle(name="TitleStyle", fontName="SimSun", fontSize=48, alignment=TA_LEFT )
+	sub_title_style = ParagraphStyle(name="SubTitleStyle", fontName="SimSun", fontSize=32,textColor=colors.HexColor(0x666666), alignment=TA_LEFT)
+	content_style = ParagraphStyle(name="ContentStyle", fontName="SimSun", fontSize=18, leading=25, spaceAfter=20,underlineWidth=1, alignment=TA_LEFT )
+	foot_style = ParagraphStyle(name="FootStyle", fontName="SimSun", fontSize=14,textColor=colors.HexColor(0xB4B4B4),leading=25, spaceAfter=20, alignment=TA_CENTER)
+
 	page1 = text_test()
 	elements.append(page1)
+	elements.append(Spacer(1, 10 * mm))
+	elements.append(Paragraph("测试报告", title_style))
+	elements.append(Spacer(1, 10 * mm))
+	elements.append(Paragraph("Test Report of XXX", sub_title_style))
+	elements.append(Spacer(1, 15 * mm))
+	elements.append(Paragraph("报告编号：" + "007", content_style))
+	elements.append(Paragraph("计划名称：" + "xxx软件测试报告", content_style))
+	elements.append(Paragraph("报告日期：" + "2019-10-23", content_style))
+	elements.append(Paragraph(" 负责人：" + "测试组", content_style))
+	elements.append(Spacer(1, 15 * mm))
+	elements.append(Paragraph("内部文档，请勿外传", foot_style))
 	elements.append(PageBreak())
 
-	page2 = autoLegender("你好！")
-	elements.append(page2)
-	elements.append(PageBreak())
+	# page2 = autoLegender("你好！")
+	# elements.append(page2)
+	# elements.append(PageBreak())
 
 
 
@@ -181,23 +198,31 @@ if __name__ == "__main__":
 			 HexColor("#483D8B")
 			 ]
 	page4 = draw_pie_autoLegender(draw_pie(data, labs, color), "饼状图")
+	elements.append(Spacer(1, 2 * inch))
+	elements.append(Spacer(1, 2 * inch))
+	elements.append(Spacer(1, 2 * inch))
+
 	elements.append(page4)
 	elements.append(PageBreak())
 
-	img = Image('./地云土地报告PPT模板/PPT封面.png')
-	img.drawHeight = 16 * cm
-	img.drawWidth = 33 * cm
-	# img.hAlign = TA_LEFT
-	elements.append(img)
-	text_test= text_test()
-	elements.append(text_test)
-	elements.append(PageBreak())
+	# img = Image('./地云土地报告PPT模板/PPT封面.png')
+	# img.drawHeight = 16 * cm
+	# img.drawWidth = 33 * cm
+	# # img.hAlign = TA_LEFT
+	# elements.append(img)
+	# text_test = text_test()
+	# elements.append(text_test)
 
-	img = Image('./地云土地报告PPT模板/toubu.png')
-	img.drawHeight = 16 * cm
-	img.drawWidth = 33 * cm
-	elements.append(img)
-	elements.append(PageBreak())
+
+	# elements.append(PageBreak())
+	#
+	# img = Image('./地云土地报告PPT模板/toubu.png')
+	# img.drawHeight = 16 * cm
+	# img.drawWidth = 33 * cm
+	# elements.append(img)
+	# elements.append(PageBreak())
+
+	# todo SimpleDocTemplate.build()的方式创建PDF, 目前没法插入背景图片（平铺与拉伸）,也没法在背景图上加文字
 
 	pdf.build(elements)
 

@@ -28,14 +28,25 @@ can.drawText(textobject)
 can.showPage()
 
 image = ImageReader("./slide4_chart1.png")
+can.drawImage(image,0,0,300,300)
+can.showPage()
+
+image = ImageReader("./slide6_chart1.png")
+can.drawImage(image,0,0,300,200)
+can.showPage()
+
+image = ImageReader("./slide7_chart1.png")
 can.drawImage(image,0,0)
+can.showPage()
 
-
-
+#含文字的背景,可做成图片,预先放到模板pdf里面
+# todo  但是   Canvas是用来画图的, 不能插入表格，
 
 
 
 can.save()
+
+
 
 #move to the beginning of the StringIO buffer
 packet.seek(0)
@@ -55,6 +66,19 @@ output.addPage(page)
 page = existing_pdf.getPage(1)
 page.mergePage(new_pdf.getPage(1))
 output.addPage(page)
+
+
+page = existing_pdf.getPage(2)
+page.mergePage(new_pdf.getPage(2))
+output.addPage(page)
+
+# text = existing_pdf.getPage(3).extractText()
+# print("existing_pdf.getPage(3).extractText()="+text)
+# page = existing_pdf.getPage(3)
+# page.mergePage(new_pdf.getPage(3))
+# output.addPage(page)
+
+
 
 
 
