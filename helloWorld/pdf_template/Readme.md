@@ -1,9 +1,27 @@
 # python使用PDF模板生成文件
 
+## 策略
+    根据对已有的PDF模板文件，往每一页加入文本、图表、表格、图片等内容，生成最终的pdf文件
+
+## reportlab生成pdf的方式
+### canvas
+    这种方式能手动调控布局，但是不能生成图表、表格、
+    代码如下：
+    canvas = canvas.Canvas("reportlab_test1.pdf")
+    canvas.drawString(300,3,"Hello,World " + str(index))
+    canvas.showPage() # 关闭当前页，打开新的一页
+    canvas.save()
+    
+### SimpleDocTemplate.build()
+    这种方式能生成图表、表格、但不方便对插入的组件进行布局    
+    布局的折中方式：通过表格 或者嵌套表格的方式，进行简单的布局
 
 #参考文档
+[python和java代码例子](https://www.programcreek.com/python/)
 
 reportlab
+[Python reportlab.platypus.SimpleDocTemplate() Examples ](https://www.programcreek.com/python/example/51068/reportlab.platypus.SimpleDocTemplate)
+[Python reportlab.platypus.TableStyle() Examples ](https://www.programcreek.com/python/example/51066/reportlab.platypus.TableStyle) 
 [pdf 模板：可以使用 pyPdf 和 reportlab 包。](http://stackoverflow.com/questions/1180115/add-text-to-existing-pdf-using-python)
 [Python3用ReportLab生成pdf报表,不学何来惊喜?](https://www.jianshu.com/p/a09186fc3131)
 [reportlab 中文问题[已解决]](https://www.jianshu.com/p/41284e4e25f5)

@@ -42,9 +42,11 @@ doc.addPageTemplates([PageTemplate(id='OneCol', frames=frameT, onPage=foot1),
 Elements.append(Paragraph("Frame one column, " * 5, styles['Normal']))
 Elements.append(NextPageTemplate('TwoCol'))
 Elements.append(PageBreak())
+
 Elements.append(Paragraph("Frame two columns,  " * 300, styles['Normal']))
 Elements.append(NextPageTemplate('OneCol'))
 Elements.append(PageBreak())
+
 Elements.append(Paragraph("Une colonne", styles['Normal']))
 
 
