@@ -1,6 +1,8 @@
 参考文档：
 [matplotlib官方文档](https://matplotlib.org/tutorials/index.html)
 
+[翻译：Python 数据科学入门教程：Matplotlib](https://blog.csdn.net/wizardforcel/article/details/54407212)
+
 [使用Python的matplotlib画折线图，柱状图，三维图](https://blog.csdn.net/pcb931126/article/details/85124369)
 
 [Python——使用matplotlib绘制柱状图](https://blog.csdn.net/qq_29721419/article/details/71638912)
