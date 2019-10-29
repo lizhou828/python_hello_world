@@ -11,9 +11,9 @@ y_data3 = [ 21500, 18300, 16800, 19500, 42700]
 
 # 绘图
 plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
-plt.bar(x=x_data, height=y_data, label='C语言基础', color='steelblue', alpha=0.8)
-plt.bar(x=x_data, height=y_data2, label='Java基础', color='indianred', alpha=0.8)
-plt.bar(x=x_data, height=y_data3, label='python基础', color='green', alpha=0.8)
+plt.bar(x=x_data, height=y_data, label='C语言基础', color='#50E3C2', alpha=0.8)
+plt.bar(x=x_data, height=y_data2, label='Java基础', color='#0080FF', alpha=0.8)
+plt.bar(x=x_data, height=y_data3, label='python基础', color='#1F4AC6', alpha=0.8)
 
 # 在柱状图上显示具体数值, ha参数控制水平对齐方式, va控制垂直对齐方式
 #特别注意：在柱状图上显示具体数值时，x_data必须时str数组，如果是int数组，则不会显示数值
