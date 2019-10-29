@@ -148,7 +148,15 @@ def draw_pie(data=[], labels=[], use_colors=[], width=360,):
 
 if __name__ == "__main__":
 	elements = []
-	pdf = SimpleDocTemplate('reportlab_test5.pdf', pagesize=landscape(letter)) #设置页面横向
+
+	# 设置上下左右的外边距
+	leftMargin = 0.1*inch
+	rightMargin = 0.1*inch
+	topMargin=0.1*inch
+	bottomMargin=0.1* inch
+
+	pdf = SimpleDocTemplate('reportlab_test5.pdf', pagesize=landscape(letter) ,
+							leftMargin=leftMargin,rightMargin=rightMargin,topMargin=topMargin, bottomMargin=bottomMargin) #设置页面横向
 
 	title_style = ParagraphStyle(name="TitleStyle", fontName="SimSun", fontSize=48, alignment=TA_LEFT )
 	sub_title_style = ParagraphStyle(name="SubTitleStyle", fontName="SimSun", fontSize=32,textColor=colors.HexColor(0x666666), alignment=TA_LEFT)
@@ -174,20 +182,18 @@ if __name__ == "__main__":
 	# elements.append(page2)
 	# elements.append(PageBreak())
 
-
-
-
+	# elements.append(Spacer(1, 5.5* inch))
+	elements.append(Spacer(1, 1 * mm))
 	Style = getSampleStyleSheet()
 	n = Style['Normal']
 	data = [[0, 1, 2, 3, 4, 5, 6, 7],
 			[00, 11, 22, 33, 44, 55, 66, 77],
 			[000, 111, 222, 333, 444, 555, 666, 777],
 			[0000, 1111, 2222, 3333, 4444, 5555, 6666, 7777], ]
-	page3 = table_model(data)
-
+	page3_table = table_model(data)
 	elements.append(Paragraph('Title', n))
-	elements.append(page3)
-	elements.append(PageBreak())
+	elements.append(page3_table)
+
 
 	data = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
 	labs = ['0000000', '1111111', '2222222', '3333333', '4444444',
