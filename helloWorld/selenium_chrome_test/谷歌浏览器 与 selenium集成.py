@@ -4,7 +4,7 @@ from selenium import webdriver
 
 
 #谷歌浏览器 与 selenium集成
-# 谷歌浏览器下载地址
+# 谷歌浏览器驱动下载地址
 # chromedriver下载地址 https://npm.taobao.org/mirrors/chromedriver/
 # https://npm.taobao.org/mirrors/chromedriver/2.40/chromedriver_linux64.zip
 # https://npm.taobao.org/mirrors/chromedriver/2.40/chromedriver_win32.zip
