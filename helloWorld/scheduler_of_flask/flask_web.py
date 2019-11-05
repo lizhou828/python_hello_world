@@ -12,10 +12,17 @@
 2019-6-26 9:38     lizhou         1.0         
 
 """
+import datetime
+import time
 
-from flask import Flask
+from flask import Flask, redirect, abort, request, make_response
 import os
 import json
+from concurrent.futures import ThreadPoolExecutor
+
+from helloWorld import print_info
+
+executor = ThreadPoolExecutor(1)
 
 app = Flask(__name__)  # 实例化flask
 
@@ -63,7 +70,15 @@ def get_user(id):
         abort(404)
     return '<h1>Hello,%s</h1>'%id
 
+@app.route('/test_async')
+def update_redis():
+    executor.submit(do_async)
+    return 'ok，后台在悄悄的做异步任务'
 
+def do_async():
+    print_info('start 悄悄的做异步任务')
+    time.sleep(3)
+    print_info('end 悄悄的做异步任务')
 
 
 
