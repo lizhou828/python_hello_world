@@ -72,13 +72,13 @@ def get_user(id):
 
 @app.route('/test_async')
 def update_redis():
-    executor.submit(do_async)
+    executor.submit(do_async,"我是words参数")
     return 'ok，后台在悄悄的做异步任务'
 
-def do_async():
-    print_info('start 悄悄的做异步任务')
+def do_async(words):
+    print_info('start 悄悄的做异步任务：'+ words)
     time.sleep(3)
-    print_info('end 悄悄的做异步任务')
+    print_info('end 悄悄的做异步任务：' + words)
 
 
 
