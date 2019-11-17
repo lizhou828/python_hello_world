@@ -1,4 +1,5 @@
 import json
+from {{package_name}}.model import DateEncoder
 
 class {{class_name}}(object):
 
@@ -29,4 +30,4 @@ class {{class_name}}(object):
                 {%endif%}
             {% endfor %}
         }
-        return json.dumps({{class_name}}Dict)
+        return json.dumps({{class_name}}Dict,cls=DateEncoder)
