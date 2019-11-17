@@ -1,0 +1,29 @@
+<meta http-equiv="Content-Type"content="text/html;charset=utf-8">
+<html align='left'>
+<h1>巡检报告</h1>
+    <body>
+    <h2>报告综述</h2>
+    <p>巡检地点 : 机房&nbsp;&nbsp;开始时间 : {{start_time}}&nbsp;&nbsp;结束时间 : {{stop_time}}  </p>
+    <p>检测结果 : ***&nbsp;&nbsp;其它信息：***</p>
+    <h2>详细信息</h2>
+    <table border="1" width = "40%" cellspacing='0' cellpadding='0' align='left'>
+    <tr>
+        <th>机柜号</th>
+        <th>检测时间</th>
+        <th>检测结果</th>
+        <th>详细信息</th>
+        <th>图片路径</th>
+    </tr>
+
+    {% for item in body %}
+    <tr align='center'>
+        <td>{{ item.cabID }}</td>
+        <td>{{ item.shijian }}</td>
+        <td>{{ item.final_result }}</td>
+        <td>{{ item.info }}</td>
+        <td><a href={{item.image_path}}>图片</a> </td>
+    </tr>
+    {% endfor%}
+    </table>
+    </body>
+</html>
