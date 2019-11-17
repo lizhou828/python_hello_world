@@ -7,4 +7,5 @@ CHARSET = "utf8"
 
 
 TABLE_PREFIX = "t_"
+PACKAGE_NAME ="app"
 

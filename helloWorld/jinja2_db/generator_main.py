@@ -1,6 +1,7 @@
 from jinja2 import Environment, FileSystemLoader
 
 from helloWorld.jinja2_db.generator_service import read_tables_info
+from helloWorld.jinja2_db.generator_config import PACKAGE_NAME
 
 
 def generate_file(table_info):
@@ -11,6 +12,9 @@ def generate_file(table_info):
     :param stoptime:
     :return:
     '''
+
+    table_info['package_name'] = PACKAGE_NAME
+
     env = Environment(loader=FileSystemLoader('./'))
     template_file_name = "template/model/{class_name}.py"
     template = env.get_template(template_file_name)
