@@ -86,3 +86,5 @@
 [Gunicorn , uWSGI同步异步测试以及应用场景总结](https://blog.csdn.net/orangleliu/article/details/49275687)
 
 [Python Web 部署是 uWSGI 还是 gunicorn 更优？](https://hacpai.com/article/1458191908235)
+
+[Flask中文文档](http://docs.jinkan.org/docs/flask/)
