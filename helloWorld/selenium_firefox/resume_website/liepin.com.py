@@ -9,7 +9,6 @@ from bs4 import BeautifulSoup
 #
 # 猎聘网也很好用，不过猎聘网不是很适合应届生（非常优秀的应届生除外），猎聘网主要是猎头职位，当然现在公司直招的也不少。猎聘网的职位一般都是中高端职位，需要条件优秀，三五年工作经验以上，适合应届生的职位比较少。
 
-host = "https://www.sz68.com"
 def get_url_list(html):
 	soup = BeautifulSoup(html, features="lxml")
 	div_list = soup.find_all("div", attrs={"class": "sojob-item-main"})
