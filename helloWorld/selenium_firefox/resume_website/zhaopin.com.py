@@ -4,7 +4,9 @@ from selenium import webdriver
 from bs4 import BeautifulSoup
 from selenium.webdriver import ActionChains
 
-host = "https://www.sz68.com"
+
+# 智联毕竟是家老牌招聘平台，应届生求职还是要用智联的
+
 def get_url_list(html):
 	soup = BeautifulSoup(html, features="lxml")
 	if not soup.select_one("#listContent") or soup.select_one("#listContent").text == "":

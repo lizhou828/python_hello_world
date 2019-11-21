@@ -3,6 +3,12 @@ import time
 from selenium import webdriver
 from bs4 import BeautifulSoup
 
+# 版权归作者所有，任何形式转载请联系作者。
+# 作者：卒离（来自豆瓣）
+# 来源：https://www.douban.com/note/707920971/
+#
+# 猎聘网也很好用，不过猎聘网不是很适合应届生（非常优秀的应届生除外），猎聘网主要是猎头职位，当然现在公司直招的也不少。猎聘网的职位一般都是中高端职位，需要条件优秀，三五年工作经验以上，适合应届生的职位比较少。
+
 host = "https://www.sz68.com"
 def get_url_list(html):
 	soup = BeautifulSoup(html, features="lxml")

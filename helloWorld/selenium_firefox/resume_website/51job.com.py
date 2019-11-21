@@ -3,7 +3,17 @@ import time
 from selenium import webdriver
 from bs4 import BeautifulSoup
 
-host = "https://www.sz68.com"
+
+
+# 版权归作者所有，任何形式转载请联系作者。
+# 作者：卒离（来自豆瓣）
+# 来源：https://www.douban.com/note/707920971/
+#
+# 作为老牌的招聘网站，51JOB非常好用，也是我认为最好用的一家。大公司、小公司中型公司的各种职位都有，而且虚假招聘信息非常少。
+#
+# 51JOB的PC端的搜索功能非常好用。只要确定好行业、薪资、工作年限、企业类型等条件，只要替换搜索关键词就可以搜索其他意向工作，非常方便。不像某些招聘平台， 换一个关键词就要重新设定行业等筛选条件，非常耗时。
+
+
 def get_url_list(html):
 	soup = BeautifulSoup(html, features="lxml")
 	if not soup.select_one("#resultList") or soup.select_one("#resultList").text == "":
