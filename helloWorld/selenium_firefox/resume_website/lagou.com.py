@@ -17,7 +17,7 @@ def get_url_list(html):
 		if "www.lagou.com" not in href:
 			href = "https://www.lagou.com"+href
 		obj["href"] = href
-		obj["title"]=  a.text.strip()
+		obj["title"]= a.text.split("\n")[0].strip() if "\n" in a.text else a.text.strip()
 		obj_list.append(obj)
 	return obj_list
 
