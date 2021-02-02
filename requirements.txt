@@ -5,7 +5,7 @@ asn1crypto==0.24.0
 astor==0.7.1
 baidu-aip==2.2.5.2
 beautifulsoup4==4.7.1
-bleach==1.5.0
+bleach==3.3.0
 captcha==0.3
 certifi==2019.3.9
 cffi==1.11.5
