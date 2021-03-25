@@ -60,7 +60,7 @@ python-dateutil==2.8.0
 python-pptx==0.6.18
 PyTweening==1.0.3
 pytz==2018.9
-PyYAML==3.13
+PyYAML==5.4
 redis==3.1.0
 reportlab==3.5.26
 requests==2.19.1
