@@ -52,7 +52,7 @@ PyMsgBox==1.0.6
 PyMySQL==0.9.3
 pyOpenSSL==19.0.0
 pyparsing==2.4.0
-PyPDF2==1.26.0
+PyPDF2==1.27.5
 pyppeteer==0.0.25
 PyRect==0.1.4
 PyScreeze==0.1.21
