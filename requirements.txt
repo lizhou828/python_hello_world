@@ -21,7 +21,7 @@ fonttools==3.42.0
 gast==0.2.2
 grpcio==1.19.0
 h5py==2.9.0
-html5lib==0.9999999
+html5lib==0.999999999
 idna==2.7
 imutils==0.5.2
 itsdangerous==1.1.0
