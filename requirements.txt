@@ -7,7 +7,7 @@ baidu-aip==2.2.5.2
 beautifulsoup4==4.7.1
 bleach==1.5.0
 captcha==0.3
-certifi==2019.3.9
+certifi==2022.12.7
 cffi==1.11.5
 chardet==3.0.4
 Click==7.0
